@@ -371,7 +371,7 @@ require ("config.php");
                                       <img
                                         align="center"
                                         border="0"
-                                        src="https://celloquidcapital.com/account/images/logo.png"
+                                        src="{{websiteURL}}/template/images/logo.png"
                                         alt="Image"
                                         title="Image"
                                         style="

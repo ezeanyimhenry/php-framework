@@ -18,7 +18,8 @@ switch ($request) {
         break;
 
         case '/dashboard':
-            require __DIR__ . '/views/user/_dashboard.php';
+            $contentPage = __DIR__ . '/views/user/_dashboard.php';
+            require __DIR__ . '/views/user/_index.php';
             break;
     
             case '/logout':
