@@ -1,6 +1,8 @@
 <?php
-require_once('classes/User.php');
-require_once('functions.php');
+
+use Framework\Classes\User;
+use Framework\Classes\Utility;
+
 
 session_start();
 
@@ -17,7 +19,7 @@ if (isset($_POST['register'])) {
     $result = $user->register($firstName, $lastName, $username, $email, $password, $confirmPassword);
 
     if ($result['success']) {
-        ////////////////////////////////////////////////////////////////
+        
         $recipient = $email;
         $subject = 'Registration Successful';
         $templateName = 'auth';
@@ -32,12 +34,12 @@ if (isset($_POST['register'])) {
             // Add more variables as needed
         ];
 
-        if (sendEmail($recipient, $subject, $templateName, $templateVariables)) {
+        if (Utility::sendEmail($recipient, $subject, $templateName, $templateVariables)) {
             echo 'Email sent successfully.';
         } else {
             echo 'Email sending failed.';
         }
-        ////////////////////////////////////////////////////////////////
+
         echo "Registration successful. " . $result['message'];
     } else {
         echo "Registration failed. " . $result['message'];
@@ -57,8 +59,8 @@ if (isset($_POST['register'])) {
     <title>Register -
         <?= WEBSITE_NAME ?>
     </title>
-    <link rel="shortcut icon" href="template/images/favicon.png" />
-    <link rel="stylesheet" href="template/assets/css/style8a4f.css?v1.1.0" />
+    <link rel="shortcut icon" href="App/template/images/favicon.png" />
+    <link rel="stylesheet" href="App/template/assets/css/style8a4f.css?v1.1.0" />
 </head>
 
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
@@ -238,7 +240,7 @@ if (isset($_POST['register'])) {
         </div>
     </div>
 </body>
-<script src="template/assets/js/bundle.js"></script>
-<script src="template/assets/js/scripts.js"></script>
+<script src="App/template/assets/js/bundle.js"></script>
+<script src="App/template/assets/js/scripts.js"></script>
 
 </html>

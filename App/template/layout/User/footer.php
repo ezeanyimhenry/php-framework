@@ -2,7 +2,7 @@
             <div class="container-fluid">
               <div class="nk-footer-wrap">
                 <div class="nk-footer-copyright">
-                  &copy; 2022 Nioboard. Template by
+                  &copy; <?= date('Y').' '. WEBSITE_NAME ?>. Template by
                   <a
                     href="https://softnio.com/"
                     target="_blank"

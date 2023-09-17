@@ -1,7 +1,7 @@
 <div class="nk-sidebar nk-sidebar-fixed is-theme" id="sidebar">
           <div class="nk-sidebar-element nk-sidebar-head">
             <div class="nk-sidebar-brand">
-              <a href="index.html" class="logo-link"
+              <a href="/dashboard" class="logo-link"
                 ><div class="logo-wrap">
                   <svg
                     class="logo-svg"

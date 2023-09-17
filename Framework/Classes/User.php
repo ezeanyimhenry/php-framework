@@ -1,5 +1,6 @@
 <?php
-include "config.php";
+namespace Framework\Classes;
+use Framework\Classes\Utility;
 
 class User
 {
@@ -55,7 +56,7 @@ class User
         $sql = "SELECT id, username, email, password FROM users WHERE username = ? OR email = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$identifier, $identifier]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
@@ -74,7 +75,7 @@ class User
     public function logout()
     {
         session_destroy();
-        redirect("/signin");
+        Utility::redirect("/signin");
     }
 
     public function setRememberMeToken($user_id, $token)
@@ -101,7 +102,7 @@ class User
         $sql = "SELECT * FROM users WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$user_id]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $user;
     }

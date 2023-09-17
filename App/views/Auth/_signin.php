@@ -1,17 +1,17 @@
 <?php
-require_once('classes/User.php');
-require_once('functions.php');
+use Framework\Classes\User;
+use Framework\Classes\Utility;
 
 session_start();
 
 // Check if there is a valid "Remember Me" token and password hash
-$rememberMeData = checkRememberMeCookie();
+$rememberMeData = Utility::checkRememberMeCookie();
 
 if ($rememberMeData !== null) {
   $token = $rememberMeData['token'];
   $usernameOrEmail = $rememberMeData['usernameOrEmail'];
   $preFilledUsernameOrEmail = $usernameOrEmail;
-  if (findUserByToken($dbConnection, $token)) redirect('/dashboard');
+  if (Utility::findUserByToken($dbConnection, $token)) Utility::redirect('/dashboard');
 
 }else{
   $preFilledUsernameOrEmail = "";
@@ -27,15 +27,15 @@ if (isset($_POST['login'])) {
   if ($user->login($identifier, $password)) {
     $user_id = $_SESSION['user_id']; // Assuming you have a user ID in the session
     if (isset($_POST['remember_me']) && $_POST['remember_me'] === '1') {
-      $token = generateRandomToken();
+      $token = Utility::generateRandomToken();
       $user->setRememberMeToken($user_id, $token);
-      setRememberMeCookie($token, $identifier);
+      Utility::setRememberMeCookie($token, $identifier);
     } else {
       $user->clearRememberMeToken($user_id);
     }
     echo "Login successful!";
     // Redirect to the dashboard using the 'redirect' function
-    redirect("/dashboard");
+    Utility::redirect("/dashboard");
   } else {
     echo "Login failed.";
   }
@@ -53,8 +53,8 @@ if (isset($_POST['login'])) {
   <title>Login -
     <?= WEBSITE_NAME ?>
   </title>
-  <link rel="shortcut icon" href="template/images/favicon.png" />
-  <link rel="stylesheet" href="template/assets/css/style8a4f.css?v1.1.0" />
+  <link rel="shortcut icon" href="App/template/images/favicon.png" />
+  <link rel="stylesheet" href="App/template/assets/css/style8a4f.css?v1.1.0" />
 </head>
 
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
@@ -181,16 +181,16 @@ if (isset($_POST['login'])) {
                   <div class="mt-5">
                     <div class="media-group media-group-overlap">
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="template/images/avatar/a.jpg" alt="" />
+                        <img src="App/template/images/avatar/a.jpg" alt="" />
                       </div>
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="template/images/avatar/b.jpg" alt="" />
+                        <img src="App/template/images/avatar/b.jpg" alt="" />
                       </div>
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="template/images/avatar/c.jpg" alt="" />
+                        <img src="App/template/images/avatar/c.jpg" alt="" />
                       </div>
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="template/images/avatar/d.jpg" alt="" />
+                        <img src="App/template/images/avatar/d.jpg" alt="" />
                       </div>
                     </div>
                     <p class="small mt-2">
@@ -206,7 +206,7 @@ if (isset($_POST['login'])) {
     </div>
   </div>
 </body>
-<script src="template/assets/js/bundle.js"></script>
-<script src="template/assets/js/scripts.js"></script>
+<script src="App/template/assets/js/bundle.js"></script>
+<script src="App/template/assets/js/scripts.js"></script>
 
 </html>

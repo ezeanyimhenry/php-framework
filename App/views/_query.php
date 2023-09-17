@@ -1,6 +1,5 @@
 <?php 
-require_once('classes/User.php');
-require_once('functions.php');
+use Framework\Classes\User;
 
 session_start();
 

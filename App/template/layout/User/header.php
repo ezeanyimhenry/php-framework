@@ -24,7 +24,7 @@
                       <em class="icon ni ni-menu-right"></em>
                     </button>
                   </div>
-                  <a href="index.html" class="logo-link"
+                  <a href="/dashboard" class="logo-link"
                     ><div class="logo-wrap">
                       <svg
                         class="logo-svg"
@@ -94,7 +94,7 @@
                       <ul class="nk-nav-sub nk-nav-sub-lg">
                         <li class="nk-nav-item">
                           <a
-                            href="index.html"
+                            href="/dashboard"
                             class="nk-nav-link bg-primary-soft-hover"
                             ><div class="media-group flex-grow-1">
                               <div
@@ -540,7 +540,7 @@
                           </div>
                           <div class="nk-nav-col nk-nav-media">
                             <img
-                              src="images/thumb/a.jpg"
+                              src="App/template/images/thumb/a.jpg"
                               alt=""
                               class="rounded-3"
                             />
@@ -638,7 +638,7 @@
                                 <div
                                   class="media media-md media-middle media-circle text-bg-light"
                                 >
-                                  <img src="images/avatar/a.jpg" alt="" />
+                                  <img src="App/template/images/avatar/a.jpg" alt="" />
                                 </div>
                                 <div class="media-text">
                                   <div class="lead-text">Sharon Walker</div>
@@ -677,7 +677,7 @@
                         ><div class="d-sm-none">
                           <div class="media media-md media-circle">
                             <img
-                              src="images/avatar/a.jpg"
+                              src="App/template/images/avatar/a.jpg"
                               alt=""
                               class="img-thumbnail"
                             />
@@ -686,7 +686,7 @@
                         <div class="d-none d-sm-block">
                           <div class="media media-circle">
                             <img
-                              src="images/avatar/a.jpg"
+                              src="App/template/images/avatar/a.jpg"
                               alt=""
                               class="img-thumbnail"
                             />
@@ -701,7 +701,7 @@
                               class="media media-xl media-middle media-circle"
                             >
                               <img
-                                src="images/avatar/a.jpg"
+                                src="App/template/images/avatar/a.jpg"
                                 alt=""
                                 class="img-thumbnail"
                               />

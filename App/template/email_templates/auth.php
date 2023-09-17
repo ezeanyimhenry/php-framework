@@ -1,5 +1,5 @@
 <?php 
-require ("config.php");
+require_once ("config.php");
 ?>
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional //EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
 <html
@@ -140,8 +140,6 @@ require ("config.php");
         border-collapse: collapse;
         table-layout: fixed;
         border-spacing: 0;
-        mso-table-lspace: 0pt;
-        mso-table-rspace: 0pt;
         vertical-align: top;
         min-width: 320px;
         margin: 0 auto;
@@ -241,8 +239,6 @@ require ("config.php");
                                     border-collapse: collapse;
                                     table-layout: fixed;
                                     border-spacing: 0;
-                                    mso-table-lspace: 0pt;
-                                    mso-table-rspace: 0pt;
                                     vertical-align: top;
                                     border-top: 1px solid #f9f9f9;
                                     -ms-text-size-adjust: 100%;
@@ -258,7 +254,6 @@ require ("config.php");
                                           vertical-align: top;
                                           font-size: 0px;
                                           line-height: 0px;
-                                          mso-line-height-rule: exactly;
                                           -ms-text-size-adjust: 100%;
                                           -webkit-text-size-adjust: 100%;
                                         "
@@ -693,7 +688,6 @@ require ("config.php");
                                       overflow-wrap: break-word;
                                       word-break: break-word;
                                       word-wrap: break-word;
-                                      mso-border-alt: none;
                                       font-family: Lato, sans-serif;
                                       font-size: 16px;
                                     "

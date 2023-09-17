@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="author" content="Softnio" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="Multi-purpose admin dashboard template that especially build for programmers." />
-  <title>Dashboard -
-    <?= WEBSITE_NAME ?>
-  </title>
-  <link rel="shortcut icon" href="template/images/favicon.png" />
-  <link rel="stylesheet" href="template/assets/css/style8a4f.css?v1.1.0" />
-</head>
+<?php
+  include("App/template/layout/user/head.php")
+?>
 
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
   <div class="nk-app-root">
     <div class="nk-main">
 
-      <?php include("template/layout/user/sidebar.php") ?>
+      <?php
+        include("App/template/layout/user/sidebar.php")
+      ?>
 
       <div class="nk-wrap">
 
-        <?php include("template/layout/user/header.php") ?>
-
         <?php
-        include($contentPage);
+          include("App/template/layout/user/header.php")
         ?>
 
-        <?php include("template/layout/user/footer.php") ?>
-        
+        <?php
+          include($contentPage);
+        ?>
+
+        <?php
+          include("App/template/layout/user/footer.php")
+        ?>
+
       </div>
     </div>
   </div>
 </body>
-<script src="template/assets/js/bundle.js"></script>
-<script src="template/assets/js/scripts.js"></script>
+<script src="App/template/assets/js/bundle.js"></script>
+<script src="App/template/assets/js/scripts.js"></script>
 <div class="offcanvas offcanvas-end offcanvas-size-lg" id="notificationOffcanvas">
   <div class="offcanvas-header border-bottom border-light">
     <h5 class="offcanvas-title" id="offcanvasTopLabel">
@@ -170,6 +168,6 @@
     </ul>
   </div>
 </div>
-<script src="assets/js/charts/analytics-chart.js"></script>
+<script src="App/template/assets/js/charts/analytics-chart.js"></script>
 
 </html>
