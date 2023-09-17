@@ -1,6 +1,7 @@
 <?php
 use Framework\Classes\User;
 use Framework\Classes\Utility;
+use Framework\Validators\LoginValidator;
 
 session_start();
 
@@ -18,10 +19,14 @@ if ($rememberMeData !== null) {
 }
 
 if (isset($_POST['login'])) {
-  $user = new User($dbConnection);
 
   $identifier = $_POST['identifier']; // This should be either the email or username entered by the user
   $password = $_POST['password'];
+
+  $errors = LoginValidator::validateLoginData($dbConnection, $_POST);
+
+  if (empty($errors)) {
+    $user = new User($dbConnection);
 
 
   if ($user->login($identifier, $password)) {
@@ -33,12 +38,15 @@ if (isset($_POST['login'])) {
     } else {
       $user->clearRememberMeToken($user_id);
     }
-    echo "Login successful!";
     // Redirect to the dashboard using the 'redirect' function
     Utility::redirect("/dashboard");
   } else {
-    echo "Login failed.";
+    $loginError = "Login failed. Please check your credentials.";
   }
+} else {
+  // Handle validation errors
+  $validationError = implode('<br>', $errors);
+}
 }
 
 ?>

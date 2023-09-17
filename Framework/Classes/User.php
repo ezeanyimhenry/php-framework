@@ -106,4 +106,30 @@ class User
 
         return $user;
     }
+
+    public function isEmailAssociatedWithActiveAccount($email)
+{
+
+    // Define the SQL query to check if the email is associated with an active account
+    $query = "SELECT COUNT(*) FROM users WHERE email = :email AND status = 'active'";
+
+    // Prepare the query
+    $statement = $this->db->prepare($query);
+
+    // Bind the email parameter
+    $statement->bindParam(':email', $email, \PDO::PARAM_STR);
+
+    // Execute the query
+    $statement->execute();
+
+    // Fetch the result (in this case, the count of matching rows)
+    $result = $statement->fetchColumn();
+
+    // Close the database connection
+    $dbConnection = null;
+
+    // If the result is greater than 0, it means the email is associated with an active account
+    return $result > 0;
+}
+
 }
