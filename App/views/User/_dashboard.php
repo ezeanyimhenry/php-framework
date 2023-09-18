@@ -1,7 +1,10 @@
-<?php 
+<?php
+
+use Framework\Classes\Utility;
+
 require_once('App/views/_query.php');
 
-// echo "WELCOME ".$userDetails['username'];
+// echo ;
 ?>
 <!-- <html>
     <body>
@@ -16,265 +19,15 @@ require_once('App/views/_query.php');
               <div class="nk-content-inner">
                 <div class="nk-content-body">
                   <div class="row g-gs">
-                    <div class="col-sm-6 col-xl-6 col-xxl-3">
+                  <div class="col-xxl-6">
                       <div class="card h-100">
                         <div class="card-body">
-                          <div class="card-title-group align-items-start">
+                          <div class="card-title-group mb-4 align-items-start">
                             <div class="card-title">
-                              <h4 class="title">Sessions <?= $userDetails['username'] ?></h4>
-                            </div>
-                            <div
-                              class="media media-middle media-circle media-sm text-bg-primary-soft"
-                            >
-                              <em class="icon icon-md ni ni-user-alt-fill"></em>
-                            </div>
-                          </div>
-                          <div class="mt-2 mb-4">
-                            <div class="amount h1">2,765</div>
-                            <div class="d-flex align-items-center smaller">
-                              <div class="change up">
-                                <em class="icon ni ni-upword-alt-fill"></em>
-                                10.5%
-                              </div>
-                              <span class="text-light">From last 2 Weeks</span>
-                            </div>
-                          </div>
-                          <div class="nk-chart-analytics-session">
-                            <canvas
-                              data-nk-chart="bar"
-                              id="sessionChart"
-                            ></canvas>
-                          </div>
-                          <div
-                            class="chart-label-group justify-content-between mt-1"
-                          >
-                            <div class="chart-label chart-label-small">
-                              <div class="title">1 May</div>
-                            </div>
-                            <div class="chart-label chart-label-small">
-                              <div class="title">8 May</div>
-                            </div>
-                            <div class="chart-label chart-label-small">
-                              <div class="title">15 May</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-6 col-xxl-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <div class="card-title-group align-items-start">
-                            <div class="card-title">
-                              <h4 class="title">Avg.Sessions</h4>
-                            </div>
-                            <div
-                              class="media media-middle media-circle media-sm text-bg-success-soft"
-                            >
-                              <em
-                                class="icon icon-md ni ni-bar-chart-fill"
-                              ></em>
-                            </div>
-                          </div>
-                          <div class="mt-2 mb-4">
-                            <div class="amount h1">42:50</div>
-                            <div class="d-flex align-items-center smaller">
-                              <div class="change up">
-                                <em class="icon ni ni-upword-alt-fill"></em> 12%
-                              </div>
-                              <span class="text-light">From last month</span>
-                            </div>
-                          </div>
-                          <div class="nk-chart-analytics-session">
-                            <canvas
-                              data-nk-chart="line"
-                              id="sessionChartAvg"
-                            ></canvas>
-                          </div>
-                          <div
-                            class="chart-label-group justify-content-between mt-1"
-                          >
-                            <div class="chart-label chart-label-small">
-                              <div class="title">1 May</div>
-                            </div>
-                            <div class="chart-label chart-label-small">
-                              <div class="title">15 May</div>
-                            </div>
-                            <div class="chart-label chart-label-small">
-                              <div class="title">30 May</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-6 col-xxl-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <div class="card-title-group align-items-start">
-                            <div class="card-title">
-                              <h4 class="title">Bounce Rate</h4>
-                            </div>
-                            <div
-                              class="media media-middle media-circle media-sm text-bg-warning-soft"
-                            >
-                              <em
-                                class="icon icon-md ni ni-activity-round-fill"
-                              ></em>
-                            </div>
-                          </div>
-                          <div class="mt-2 mb-4">
-                            <div class="amount h1">1,853</div>
-                            <div class="d-flex align-items-center smaller">
-                              <div class="change up">
-                                <em class="icon ni ni-upword-alt-fill"></em> 10%
-                              </div>
-                              <span class="text-light">From last week</span>
-                            </div>
-                          </div>
-                          <div class="nk-chart-analytics-session">
-                            <canvas
-                              data-nk-chart="line"
-                              id="bounceRateChart"
-                            ></canvas>
-                          </div>
-                          <div
-                            class="chart-label-group justify-content-between mt-1"
-                          >
-                            <div class="chart-label chart-label-small">
-                              <div class="title">1 May</div>
-                            </div>
-                            <div class="chart-label chart-label-small">
-                              <div class="title">7 May</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-6 col-xxl-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <div class="card-title-group align-items-start">
-                            <div class="card-title">
-                              <h4 class="title">Goal Completions</h4>
-                            </div>
-                            <div
-                              class="media media-middle media-circle media-sm text-bg-info-soft"
-                            >
-                              <em class="icon icon-md ni ni-tag-fill"></em>
-                            </div>
-                          </div>
-                          <div class="mt-2 mb-4">
-                            <div class="amount h1">2,153</div>
-                            <div class="d-flex align-items-center smaller">
-                              <div class="change down">
-                                <em class="icon ni ni-downward-alt-fill"></em>
-                                12%
-                              </div>
-                              <span class="text-light">From last month</span>
-                            </div>
-                          </div>
-                          <div class="nk-chart-analytics-session">
-                            <canvas
-                              data-nk-chart="bar"
-                              id="goalCompletions"
-                            ></canvas>
-                          </div>
-                          <div
-                            class="chart-label-group justify-content-between mt-1"
-                          >
-                            <div class="chart-label chart-label-small">
-                              <div class="title">1 May</div>
-                            </div>
-                            <div class="chart-label chart-label-small">
-                              <div class="title">15 May</div>
-                            </div>
-                            <div class="chart-label chart-label-small">
-                              <div class="title">30 May</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xxl-6">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <div class="card-title-group flex-wrap">
-                            <div class="card-title">
-                              <h5 class="title">Audience Overview</h5>
-                            </div>
-                            <div
-                              class="chart-legend-group gap gx-3 align-items-center"
-                            >
-                              <div class="gap-col">
-                                <div class="chart-legend chart-legend-small">
-                                  <span class="dot bg-warning"></span>
-                                  <div class="chart-legend-text">
-                                    <div class="title">New visits</div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="gap-col">
-                                <div class="chart-legend chart-legend-small">
-                                  <span class="dot bg-info"></span>
-                                  <div class="chart-legend-text">
-                                    <div class="title">Unique visits</div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="gap-col">
-                                <div class="dropdown">
-                                  <a
-                                    href="#"
-                                    class="btn btn-sm btn-icon btn-zoom me-n1"
-                                    data-bs-toggle="dropdown"
-                                    ><em class="icon ni ni-more-v"></em
-                                  ></a>
-                                  <ul
-                                    class="dropdown-menu dropdown-menu-sm dropdown-menu-end"
-                                  >
-                                    <li>
-                                      <div class="dropdown-header pt-2 pb-0">
-                                        <h6 class="mb-0">Options</h6>
-                                      </div>
-                                    </li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li>
-                                      <a href="#" class="dropdown-item"
-                                        >7 Days</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="#" class="dropdown-item"
-                                        >15 Days</a
-                                      >
-                                    </li>
-                                    <li>
-                                      <a href="#" class="dropdown-item"
-                                        >30 Days</a
-                                      >
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            class="nk-chart-analytics-audience-overview mt-3"
-                          >
-                            <canvas
-                              data-nk-chart="line"
-                              id="audienceOverviewChart"
-                            ></canvas>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xxl-6">
-                      <div class="card h-100">
-                        <div class="card-body flex-grow-0 py-2">
-                          <div class="card-title-group">
-                            <div class="card-title">
-                              <h5 class="title">Top Referral Sources</h5>
+                              <h4 class="title mb-0">Welcome, <?= ucfirst($userDetails['username']) ?></h4>
+                              <span class="small"
+                                >Your IP Address: <?= Utility::getUserInfo()['ip_address'] ?></span
+                              >
                             </div>
                             <div class="card-tools">
                               <div class="dropdown">
@@ -284,189 +37,90 @@ require_once('App/views/_query.php');
                                   data-bs-toggle="dropdown"
                                   ><em class="icon ni ni-more-v"></em
                                 ></a>
-                                <ul
-                                  class="dropdown-menu dropdown-menu-sm dropdown-menu-end"
-                                >
+                                <ul class="dropdown-menu dropdown-menu-end">
                                   <li>
                                     <div class="dropdown-header pt-2 pb-0">
-                                      <h6 class="mb-0">Options</h6>
+                                      <h6 class="mb-0">Actions</h6>
                                     </div>
                                   </li>
                                   <li><hr class="dropdown-divider" /></li>
                                   <li>
-                                    <a href="#" class="dropdown-item">7 Days</a>
-                                  </li>
-                                  <li>
                                     <a href="#" class="dropdown-item"
-                                      >15 Days</a
+                                      >New Ticket</a
                                     >
                                   </li>
                                   <li>
                                     <a href="#" class="dropdown-item"
-                                      >30 Days</a
+                                      >New Customer</a
+                                    >
+                                  </li>
+                                  <li>
+                                    <a href="#" class="dropdown-item"
+                                      >New Contact</a
                                     >
                                   </li>
                                 </ul>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="table-responsive">
-                          <table class="table table-middle mb-0">
-                            <thead class="table-light table-head-sm">
-                              <tr>
-                                <th class="tb-col">
-                                  <span class="overline-title">source</span>
-                                </th>
-                                <th class="tb-col tb-col-end">
-                                  <span class="overline-title">visitors</span>
-                                </th>
-                                <th class="tb-col tb-col-end">
-                                  <span class="overline-title">revenues</span>
-                                </th>
-                                <th class="tb-col tb-col-end">
-                                  <span class="overline-title">sales</span>
-                                </th>
-                                <th class="tb-col tb-col-end">
-                                  <span class="overline-title">conversion</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td class="tb-col">
-                                  <div class="media-group">
-                                    <div
-                                      class="media media-md flex-shrink-0 media-middle media-circle text-bg-dark"
-                                    >
-                                      <em class="icon ni ni-github-circle"></em>
-                                    </div>
-                                    <div class="media-text">
-                                      <span class="title">github.com</span>
-                                    </div>
+                          <div class="row g-gs">
+                            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                              <div class="box-dotted h-100">
+                                <em
+                                  class="icon icon-lg ni ni-chart-up text-primary"
+                                ></em>
+                                <h5 class="title mt-2 mb-3">
+                                  Avg. Client Rating
+                                </h5>
+                                <div class="amount h3">7.8/10</div>
+                                <div
+                                  class="d-flex align-items-center smaller flex-wrap"
+                                >
+                                  <div class="change up">
+                                    <em class="icon ni ni-trend-up"></em> +2.5%
                                   </div>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">2.4K</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="change up small">$3.877</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">267</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="text-info small">4.7%</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="tb-col">
-                                  <div class="media-group">
-                                    <div
-                                      class="media media-md flex-shrink-0 media-middle media-circle text-bg-info"
-                                    >
-                                      <em class="icon ni ni-twitter"></em>
-                                    </div>
-                                    <div class="media-text">
-                                      <span class="title">twitter.com</span>
-                                    </div>
+                                  <span>than last Week</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                              <div class="box-dotted h-100">
+                                <em
+                                  class="icon icon-lg ni ni-user-add text-success"
+                                ></em>
+                                <h5 class="title mt-2 mb-3">
+                                  Instagram Followers
+                                </h5>
+                                <div class="amount h3">7784k</div>
+                                <div
+                                  class="d-flex align-items-center smaller flex-wrap"
+                                >
+                                  <div class="change down">
+                                    <em class="icon ni ni-trend-down"></em>
+                                    -1.5%
                                   </div>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">2.2K</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="change up small">$3.444</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">265</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="text-info small">4.5%</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="tb-col">
-                                  <div class="media-group">
-                                    <div
-                                      class="media media-md flex-shrink-0 media-middle media-circle text-bg-danger"
-                                    >
-                                      <em class="icon ni ni-google"></em>
-                                    </div>
-                                    <div class="media-text">
-                                      <span class="title">google.com</span>
-                                    </div>
+                                  <span>than last Week</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 col-xl-4">
+                              <div class="box-dotted h-100">
+                                <em
+                                  class="icon icon-lg ni ni-coins text-warning"
+                                ></em>
+                                <h5 class="title mt-2 mb-3">Google Ads CPC</h5>
+                                <div class="amount h3">$5.02</div>
+                                <div
+                                  class="d-flex align-items-center smaller flex-wrap"
+                                >
+                                  <div class="change up">
+                                    <em class="icon ni ni-trend-up"></em> +2.6%
                                   </div>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">2.1K</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="change up small">$3.232</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">264</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="text-info small">4.3%</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="tb-col">
-                                  <div class="media-group">
-                                    <div
-                                      class="media media-md flex-shrink-0 media-middle media-circle text-bg-success"
-                                    >
-                                      <em class="icon ni ni-vimeo"></em>
-                                    </div>
-                                    <div class="media-text">
-                                      <span class="title">vimeo.com</span>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">2.0K</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="change up small">$3.212</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">261</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="text-info small">4.1%</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="tb-col">
-                                  <div class="media-group">
-                                    <div
-                                      class="media media-md flex-shrink-0 media-middle media-circle text-bg-warning"
-                                    >
-                                      <em class="icon ni ni-digital-ocean"></em>
-                                    </div>
-                                    <div class="media-text">
-                                      <span class="title"
-                                        >digital-ocean.com</span
-                                      >
-                                    </div>
-                                  </div>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">1.8K</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="change up small">$3.105</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="small">260</span>
-                                </td>
-                                <td class="tb-col tb-col-end">
-                                  <span class="text-info small">3.1%</span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                                  <span>than last Week</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -636,73 +290,7 @@ require_once('App/views/_query.php');
                         </div>
                       </div>
                     </div>
-                    <div class="col-xxl-4">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <div class="card-title-group">
-                            <div class="card-title">
-                              <h5 class="title">Web Sessions by Region</h5>
-                            </div>
-                            <div class="card-tools">
-                              <em
-                                class="icon-hint icon ni ni-help-fill"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="left"
-                                title="Web Sessions from region"
-                              ></em>
-                            </div>
-                          </div>
-                          <div
-                            class="nk-chart-analytics-session-region-map mt-3 mx-auto"
-                          >
-                            <div
-                              class="js-svgmap js-svgmap-zoom-off"
-                              id="svgWorldMap"
-                            ></div>
-                          </div>
-                          <div
-                            class="list-group-heading d-flex align-items-center justify-content-between"
-                          >
-                            <h6 class="title">Top Region</h6>
-                            <h6 class="title">Sessions</h6>
-                          </div>
-                          <ul
-                            class="list-group list-group-borderless list-group-sm"
-                          >
-                            <li
-                              class="list-group-item d-flex justify-content-between align-items-center smaller"
-                            >
-                              <span class="title">United States</span
-                              ><span class="text">8,465</span>
-                            </li>
-                            <li
-                              class="list-group-item d-flex justify-content-between align-items-center smaller"
-                            >
-                              <span class="title">United Kingdom</span
-                              ><span class="text">6,423</span>
-                            </li>
-                            <li
-                              class="list-group-item d-flex justify-content-between align-items-center smaller"
-                            >
-                              <span class="title">Canada</span
-                              ><span class="text">5,764</span>
-                            </li>
-                            <li
-                              class="list-group-item d-flex justify-content-between align-items-center smaller"
-                            >
-                              <span class="title">Germany</span
-                              ><span class="text">1,374</span>
-                            </li>
-                            <li
-                              class="list-group-item d-flex justify-content-between align-items-center smaller"
-                            >
-                              <span class="title">Bangladesh</span
-                              ><span class="text">890</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+
                   </div>
                 </div>
               </div>

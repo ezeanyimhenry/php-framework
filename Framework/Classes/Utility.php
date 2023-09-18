@@ -100,4 +100,46 @@ class Utility
 
     }
 
+    static function getUserInfo()
+    {
+        $userInfo = array();
+
+        // Get IP address
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $userIP = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $userIP = $_SERVER['REMOTE_ADDR'];
+        }
+        $userInfo['ip_address'] = $userIP;
+
+        // Get user agent (browser)
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+            // Detect the user's operating system from the user agent string
+            $os = "Unknown"; // Default value
+            if (strpos($userAgent, "Windows") !== false) {
+                $os = "Windows";
+            } elseif (strpos($userAgent, "Macintosh") !== false) {
+                $os = "Macintosh";
+            } elseif (strpos($userAgent, "Linux") !== false) {
+                $os = "Linux";
+            }
+
+            $userInfo['user_agent'] = $userAgent;
+            $userInfo['operating_system'] = $os;
+        } else {
+            $userInfo['user_agent'] = '';
+            $userInfo['operating_system'] = 'Unknown';
+        }
+
+        // Get user's host name (as shown in the previous answer)
+        // ...
+
+        return $userInfo;
+    }
+
+
 }
