@@ -7,41 +7,32 @@ class LoginValidator extends BaseValidator
     public static function validateLoginData($dbConnection, $data)
     {
         $errors = [];
+        // Create an instance of the User class with your PDO connection
+        $user = new User($dbConnection); 
 
-        $usernameOrEmail = $data['identifier'];
-        $password = $data['password'];
+        // Check if 'identifier' is provided
+        if (!isset($data['identifier']) || empty($data['identifier'])) {
+            $errors['identifier'] = "Please enter your username or email.";
+        } else {
+            // Determine whether 'identifier' is a username or an email
+            if (self::validateEmail($data['identifier'])!== true) {
+                // 'identifier' is a username, validate it
 
-        if (empty($usernameOrEmail)) {
-            $errors[] = "Username or email is required.";
-        }
-
-        if (empty($password)) {
-            $errors[] = "Password is required.";
-        }
-
-        if (empty($errors)) {
-            // Check if the input is in email format
-            if (self::validateEmail($usernameOrEmail)) {
-                // This is an email, you can perform email-specific checks
-
-                // Create an instance of the User class with your PDO connection
-                $user = new User($dbConnection); // Replace with your actual PDO connection
-
-                // Use the User class's method to check if the email is associated with an active account
-                if (!$user->isEmailAssociatedWithActiveAccount($usernameOrEmail)) {
-                    $errors[] = "The provided email is not associated with an active account.";
+                // Use the User class's method to check if the username is associated with an active account
+                if (!$user->isUsernameAssociatedWithActiveAccount($data['identifier'])) {
+                    $errors[] = "The provided username is not associated with an active account.";
                 }
             } else {
-                // This is not an email, treat it as a username
-                if (!self::validateUsername($usernameOrEmail)) {
-                    $errors[] = "Invalid username format.";
-                }
-                // Additional checks if needed for usernames
-            }
+                // 'identifier' is an email,
 
-            // Additional checks if needed, e.g., verifying credentials in the database
+                // Use the User class's method to check if the email is associated with an active account
+                if (!$user->isEmailAssociatedWithActiveAccount($data['identifier'])) {
+                    $errors[] = "The provided email is not associated with an active account.";
+                }
+            }
         }
 
         return $errors;
     }
+
 }

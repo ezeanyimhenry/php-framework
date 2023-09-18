@@ -53,13 +53,14 @@ class User
 
     public function login($identifier, $password)
     {
-        $sql = "SELECT id, username, email, password FROM users WHERE username = ? OR email = ?";
+        $sql = "SELECT id, username, email, password, role FROM users WHERE username = ? OR email = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$identifier, $identifier]);
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $user['role'];
             return true;
         }
 
@@ -108,28 +109,52 @@ class User
     }
 
     public function isEmailAssociatedWithActiveAccount($email)
-{
-
-    // Define the SQL query to check if the email is associated with an active account
-    $query = "SELECT COUNT(*) FROM users WHERE email = :email AND status = 'active'";
-
-    // Prepare the query
-    $statement = $this->db->prepare($query);
-
-    // Bind the email parameter
-    $statement->bindParam(':email', $email, \PDO::PARAM_STR);
-
-    // Execute the query
-    $statement->execute();
-
-    // Fetch the result (in this case, the count of matching rows)
-    $result = $statement->fetchColumn();
-
-    // Close the database connection
-    $dbConnection = null;
-
-    // If the result is greater than 0, it means the email is associated with an active account
-    return $result > 0;
-}
+    {
+        // Define the SQL query to check if the email is associated with an active account
+        $query = "SELECT COUNT(*) FROM users WHERE email = :email AND is_active = 1";
+    
+        // Prepare the query
+        $statement = $this->db->prepare($query);
+    
+        // Bind the email parameter
+        $statement->bindParam(':email', $email, \PDO::PARAM_STR);
+    
+        // Execute the query
+        $statement->execute();
+    
+        // Fetch the result (in this case, the count of matching rows)
+        $result = $statement->fetchColumn();
+    
+        // Close the database connection
+        $this->db = null;
+    
+        // If the result is greater than 0, it means the email is associated with an active account
+        return $result > 0;
+    }
+    
+    public function isUsernameAssociatedWithActiveAccount($username)
+    {
+        // Define the SQL query to check if the username is associated with an active account
+        $query = "SELECT COUNT(*) FROM users WHERE username = :username AND is_active = 1";
+    
+        // Prepare the query
+        $statement = $this->db->prepare($query);
+    
+        // Bind the username parameter
+        $statement->bindParam(':username', $username, \PDO::PARAM_STR);
+    
+        // Execute the query
+        $statement->execute();
+    
+        // Fetch the result (in this case, the count of matching rows)
+        $result = $statement->fetchColumn();
+    
+        // Close the database connection
+        $this->db = null;
+    
+        // If the result is greater than 0, it means the username is associated with an active account
+        return $result > 0;
+    }
+    
 
 }

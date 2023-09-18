@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace Framework\Validators;
 
 class RegistrationValidator extends BaseValidator
@@ -7,28 +7,34 @@ class RegistrationValidator extends BaseValidator
     {
         $errors = [];
 
-        if (!self::validateName($data['firstname'])) {
-            $errors[] = "Invalid first name.";
+        $nameValidation = self::validateName($data['firstname']);
+        if ($nameValidation !== true) {
+            $errors['firstname'] = $nameValidation;
         }
 
-        if (!self::validateName($data['lastname'])) {
-            $errors[] = "Invalid last name.";
+        $nameValidation = self::validateName($data['lastname']);
+        if ($nameValidation !== true) {
+            $errors['lastname'] = $nameValidation;
         }
 
-        if (!self::validateUsername($data['username'])) {
-            $errors[] = "Invalid username.";
+        $usernameValidation = self::validateUsername($data['username']);
+        if ($usernameValidation !== true) {
+            $errors['username'] = $usernameValidation;
         }
 
-        if (!self::validateEmail($data['email'])) {
-            $errors[] = "Invalid email address.";
+        $emailValidation = self::validateEmail($data['email']);
+        if ($emailValidation !== true) {
+            $errors['email'] = $emailValidation;
         }
 
-        if (!self::validatePassword($data['password'])) {
-            $errors[] = "Invalid password.";
+        $passwordValidation = self::validatePassword($data['password']);
+        if ($passwordValidation !== true) {
+            $errors['password'] = $passwordValidation;
         }
 
-        if (!self::passwordsMatch($data['password'], $data['confirm_password'])) {
-            $errors[] = "Passwords do not match.";
+        $passwordMatchValidation = self::passwordsMatch($data['password'], $data['confirm_password']);
+        if ($passwordMatchValidation !== true) {
+            $errors['confirm_password'] = $passwordMatchValidation;
         }
 
         return $errors;

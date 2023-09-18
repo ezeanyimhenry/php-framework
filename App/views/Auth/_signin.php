@@ -12,9 +12,10 @@ if ($rememberMeData !== null) {
   $token = $rememberMeData['token'];
   $usernameOrEmail = $rememberMeData['usernameOrEmail'];
   $preFilledUsernameOrEmail = $usernameOrEmail;
-  if (Utility::findUserByToken($dbConnection, $token)) Utility::redirect('/dashboard');
+  if (Utility::findUserByToken($dbConnection, $token))
+    Utility::redirect('/dashboard');
 
-}else{
+} else {
   $preFilledUsernameOrEmail = "";
 }
 
@@ -23,31 +24,36 @@ if (isset($_POST['login'])) {
   $identifier = $_POST['identifier']; // This should be either the email or username entered by the user
   $password = $_POST['password'];
 
-  $errors = LoginValidator::validateLoginData($dbConnection, $_POST);
+  $validationErrors = LoginValidator::validateLoginData($dbConnection, $_POST);
 
-  if (empty($errors)) {
+  if (!empty($validationErrors)) {
+    foreach ($validationErrors as $error) {
+      echo $error . "<br>";
+    }
+  } else {
     $user = new User($dbConnection);
 
-
-  if ($user->login($identifier, $password)) {
-    $user_id = $_SESSION['user_id']; // Assuming you have a user ID in the session
-    if (isset($_POST['remember_me']) && $_POST['remember_me'] === '1') {
-      $token = Utility::generateRandomToken();
-      $user->setRememberMeToken($user_id, $token);
-      Utility::setRememberMeCookie($token, $identifier);
+    if ($user->login($identifier, $password)) {
+      $user_id = $_SESSION['user_id']; // Assuming you have a user ID in the session
+      if (isset($_POST['remember_me']) && $_POST['remember_me'] === '1') {
+        $token = Utility::generateRandomToken();
+        $user->setRememberMeToken($user_id, $token);
+        Utility::setRememberMeCookie($token, $identifier);
+      } else {
+        $user->clearRememberMeToken($user_id);
+      }
+      // Redirect to the dashboard using the 'redirect' function
+      Utility::redirect("/dashboard");
     } else {
-      $user->clearRememberMeToken($user_id);
+      $loginError = "Login failed. Please check your credentials.";
     }
-    // Redirect to the dashboard using the 'redirect' function
-    Utility::redirect("/dashboard");
-  } else {
-    $loginError = "Login failed. Please check your credentials.";
+
   }
-} else {
-  // Handle validation errors
-  $validationError = implode('<br>', $errors);
+
+
+
 }
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -90,8 +96,8 @@ if (isset($_POST['login'])) {
                           <label for="email" class="form-label">Email or Username</label>
                           <div class="form-control-wrap">
                             <input type="text" class="form-control" id="identifier" name="identifier"
-                              placeholder="Enter email or username" value="<?php echo htmlspecialchars($preFilledUsernameOrEmail); ?>"
-                              required />
+                              placeholder="Enter email or username"
+                              value="<?php echo htmlspecialchars($preFilledUsernameOrEmail); ?>" required />
                           </div>
                         </div>
                       </div>
@@ -100,8 +106,7 @@ if (isset($_POST['login'])) {
                           <label for="password" class="form-label">Password</label>
                           <div class="form-control-wrap">
                             <input type="password" class="form-control" id="password" name="password"
-                              placeholder="Enter password"
-                              required />
+                              placeholder="Enter password" required />
                           </div>
                         </div>
                       </div>
