@@ -11,12 +11,11 @@ require_once('config.php');
 $database = new Database($dsn, $username, $password);
 
 // Get the database connection
-$dbConnection = $database->getConnection();
+$dbConnection = $database->getConnection(); // Use $dbConnection for database operations
 
-// Use $dbConnection for database operations
+$authMiddleware = new AuthMiddleware();
 
 $request = $_SERVER['REQUEST_URI'];
-$authMiddleware = new AuthMiddleware();
 
 switch ($request) {
 
