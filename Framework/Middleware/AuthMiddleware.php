@@ -1,5 +1,5 @@
 <?php 
-namespace Middleware;
+namespace Framework\Middleware;
 use Framework\Classes\Utility;
 
 class AuthMiddleware {

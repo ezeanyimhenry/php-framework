@@ -1,9 +1,18 @@
 <?php
-use Middleware\AuthMiddleware;
+use Framework\Database\Database;
+use Framework\Middleware\AuthMiddleware;
 use Middleware\isAdmin;
 
 require_once('autoload.php');
 require_once('config.php');
+
+// Create an instance of the DatabaseConnection class
+$database = new Database($dsn, $username, $password);
+
+// Get the database connection
+$dbConnection = $database->getConnection();
+
+// Use $dbConnection for database operations
 
 $request = $_SERVER['REQUEST_URI'];
 $authMiddleware = new AuthMiddleware();
