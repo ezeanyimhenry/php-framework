@@ -5,8 +5,6 @@ use Framework\Classes\Utility;
 use Framework\Validators\RegistrationValidator;
 
 
-session_start();
-
 if (isset($_POST['register'])) {
     $user = new User($dbConnection);
 

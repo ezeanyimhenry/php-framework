@@ -3,8 +3,6 @@ use Framework\Classes\User;
 use Framework\Classes\Utility;
 use Framework\Validators\LoginValidator;
 
-session_start();
-
 // Check if there is a valid "Remember Me" token and password hash
 $rememberMeData = Utility::checkRememberMeCookie();
 

@@ -1,5 +1,5 @@
 <?php 
-// require_once('views/_query.php');
+require_once('App/views/_query.php');
 
 // echo "WELCOME ".$userDetails['username'];
 ?>
@@ -21,7 +21,7 @@
                         <div class="card-body">
                           <div class="card-title-group align-items-start">
                             <div class="card-title">
-                              <h4 class="title">Sessions</h4>
+                              <h4 class="title">Sessions <?= $userDetails['username'] ?></h4>
                             </div>
                             <div
                               class="media media-middle media-circle media-sm text-bg-primary-soft"

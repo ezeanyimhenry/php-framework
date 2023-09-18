@@ -1,7 +1,7 @@
 <?php 
+// session_start();
 use Framework\Classes\User;
 
-session_start();
 
 $user = new User($dbConnection);
 

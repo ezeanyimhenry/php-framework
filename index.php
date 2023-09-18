@@ -1,7 +1,8 @@
 <?php
 use Framework\Database\Database;
 use Framework\Middleware\AuthMiddleware;
-use Middleware\isAdmin;
+
+session_start();
 
 require_once('autoload.php');
 require_once('config.php');
