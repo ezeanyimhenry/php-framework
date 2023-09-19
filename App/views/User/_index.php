@@ -1,5 +1,5 @@
 <?php 
-use Framework\Classes\User;
+use App\Models\UserModel;
 use Framework\Classes\Utility;
 
-include ('App/template/layout/user/layout.php');
+include ('App/views/layout/user/layout.php');

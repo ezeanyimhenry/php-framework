@@ -15,8 +15,8 @@
     <title>
       Page not found! - <?= WEBSITE_NAME ?>
     </title>
-    <link rel="shortcut icon" href="template/images/favicon.png" />
-    <link rel="stylesheet" href="template/assets/css/style8a4f.css?v1.1.0" />
+    <link rel="shortcut icon" href="Public/images/favicon.png" />
+    <link rel="stylesheet" href="Public/assets/css/style8a4f.css?v1.1.0" />
   </head>
   <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
     <div class="nk-app-root">
@@ -25,7 +25,7 @@
           <div class="container">
             <div class="nk-block">
               <div class="nk-block-content wide-sm text-center mx-auto">
-                <img src="template/images/error/b.png" alt="" class="mb-5" />
+                <img src="Public/images/error/b.png" alt="" class="mb-5" />
                 <h2 class="nk-error-title mb-2">OOPS! Page not found!</h2>
                 <p class="nk-error-text">
                   We are very sorry for inconvenience. It looks like you’re try
@@ -43,6 +43,6 @@
       </div>
     </div>
   </body>
-  <script src="template/assets/js/bundle.js"></script>
-  <script src="template/assets/js/scripts.js"></script>
+  <script src="Public/assets/js/bundle.js"></script>
+  <script src="Public/assets/js/scripts.js"></script>
 </html>

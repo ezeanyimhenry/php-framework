@@ -2,7 +2,7 @@
 <html lang="en">
 
 <?php
-  include("App/template/layout/user/head.php")
+  include("App/views/layout/user/head.php")
 ?>
 
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
@@ -10,13 +10,13 @@
     <div class="nk-main">
 
       <?php
-        include("App/template/layout/user/sidebar.php")
+        include("App/views/layout/user/sidebar.php")
       ?>
 
       <div class="nk-wrap">
 
         <?php
-          include("App/template/layout/user/header.php")
+          include("App/views/layout/user/header.php")
         ?>
 
         <?php
@@ -24,15 +24,15 @@
         ?>
 
         <?php
-          include("App/template/layout/user/footer.php")
+          include("App/views/layout/user/footer.php")
         ?>
 
       </div>
     </div>
   </div>
 </body>
-<script src="App/template/assets/js/bundle.js"></script>
-<script src="App/template/assets/js/scripts.js"></script>
+<script src="Public/assets/js/bundle.js"></script>
+<script src="Public/assets/js/scripts.js"></script>
 <div class="offcanvas offcanvas-end offcanvas-size-lg" id="notificationOffcanvas">
   <div class="offcanvas-header border-bottom border-light">
     <h5 class="offcanvas-title" id="offcanvasTopLabel">
@@ -168,6 +168,6 @@
     </ul>
   </div>
 </div>
-<script src="App/template/assets/js/charts/analytics-chart.js"></script>
+<script src="Public/assets/js/charts/analytics-chart.js"></script>
 
 </html>

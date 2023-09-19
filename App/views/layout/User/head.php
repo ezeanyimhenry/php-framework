@@ -6,6 +6,6 @@
   <title>Dashboard -
     <?= WEBSITE_NAME ?>
   </title>
-  <link rel="shortcut icon" href="App/template/images/favicon.png" />
-  <link rel="stylesheet" href="App/template/assets/css/style8a4f.css?v1.1.0" />
+  <link rel="shortcut icon" href="Public/images/favicon.png" />
+  <link rel="stylesheet" href="Public/assets/css/style8a4f.css?v1.1.0" />
 </head>

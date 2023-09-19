@@ -77,7 +77,7 @@ class Utility
             $mail->Port = 465; // TCP port to connect to
 
             // Load the HTML content of the email from the template
-            $emailTemplate = file_get_contents("App/template/email_templates/$templateName.php");
+            $emailTemplate = file_get_contents("Public/email_templates/$templateName.php");
 
             // Replace placeholders in the template with dynamic variables
             foreach ($templateVariables as $key => $value) {

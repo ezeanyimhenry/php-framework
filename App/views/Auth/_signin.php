@@ -1,5 +1,6 @@
 <?php
-use Framework\Classes\User;
+use App\Models\UserModel;
+use App\Controllers\UserController;
 use Framework\Classes\Utility;
 use Framework\Validators\LoginValidator;
 
@@ -29,16 +30,17 @@ if (isset($_POST['login'])) {
       echo $error . "<br>";
     }
   } else {
-    $user = new User($dbConnection);
+    $user = new UserController($dbConnection);
+    $userM = new UserModel($dbConnection);
 
     if ($user->login($identifier, $password)) {
       $user_id = $_SESSION['user_id']; // Assuming you have a user ID in the session
       if (isset($_POST['remember_me']) && $_POST['remember_me'] === '1') {
         $token = Utility::generateRandomToken();
-        $user->setRememberMeToken($user_id, $token);
+        $userM->setRememberMeToken($user_id, $token);
         Utility::setRememberMeCookie($token, $identifier);
       } else {
-        $user->clearRememberMeToken($user_id);
+        $userM->clearRememberMeToken($user_id);
       }
       // Redirect to the dashboard using the 'redirect' function
       Utility::redirect("/dashboard");
@@ -65,8 +67,8 @@ if (isset($_POST['login'])) {
   <title>Login -
     <?= WEBSITE_NAME ?>
   </title>
-  <link rel="shortcut icon" href="App/template/images/favicon.png" />
-  <link rel="stylesheet" href="App/template/assets/css/style8a4f.css?v1.1.0" />
+  <link rel="shortcut icon" href="Public/images/favicon.png" />
+  <link rel="stylesheet" href="Public/assets/css/style8a4f.css?v1.1.0" />
 </head>
 
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
@@ -192,16 +194,16 @@ if (isset($_POST['login'])) {
                   <div class="mt-5">
                     <div class="media-group media-group-overlap">
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="App/template/images/avatar/a.jpg" alt="" />
+                        <img src="Public/images/avatar/a.jpg" alt="" />
                       </div>
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="App/template/images/avatar/b.jpg" alt="" />
+                        <img src="Public/images/avatar/b.jpg" alt="" />
                       </div>
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="App/template/images/avatar/c.jpg" alt="" />
+                        <img src="Public/images/avatar/c.jpg" alt="" />
                       </div>
                       <div class="media media-sm media-circle media-border border-white">
-                        <img src="App/template/images/avatar/d.jpg" alt="" />
+                        <img src="Public/images/avatar/d.jpg" alt="" />
                       </div>
                     </div>
                     <p class="small mt-2">
@@ -217,7 +219,7 @@ if (isset($_POST['login'])) {
     </div>
   </div>
 </body>
-<script src="App/template/assets/js/bundle.js"></script>
-<script src="App/template/assets/js/scripts.js"></script>
+<script src="Public/assets/js/bundle.js"></script>
+<script src="Public/assets/js/scripts.js"></script>
 
 </html>

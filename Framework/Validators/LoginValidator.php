@@ -1,6 +1,6 @@
 <?php
 namespace Framework\Validators;
-use Framework\Classes\User;
+use App\Models\UserModel;
 
 class LoginValidator extends BaseValidator
 {
@@ -8,7 +8,7 @@ class LoginValidator extends BaseValidator
     {
         $errors = [];
         // Create an instance of the User class with your PDO connection
-        $user = new User($dbConnection); 
+        $user = new UserModel($dbConnection); 
 
         // Check if 'identifier' is provided
         if (!isset($data['identifier']) || empty($data['identifier'])) {

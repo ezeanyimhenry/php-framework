@@ -1,12 +1,12 @@
 <?php
 
-use Framework\Classes\User;
+use App\Controllers\UserController;
 use Framework\Classes\Utility;
 use Framework\Validators\RegistrationValidator;
 
 
 if (isset($_POST['register'])) {
-    $user = new User($dbConnection);
+    $user = new UserController($dbConnection);
 
     $firstName = $_POST['firstname'];
     $lastName = $_POST['lastname'];
@@ -69,8 +69,8 @@ if (isset($_POST['register'])) {
     <title>Register -
         <?= WEBSITE_NAME ?>
     </title>
-    <link rel="shortcut icon" href="App/template/images/favicon.png" />
-    <link rel="stylesheet" href="App/template/assets/css/style8a4f.css?v1.1.0" />
+    <link rel="shortcut icon" href="Public/images/favicon.png" />
+    <link rel="stylesheet" href="Public/assets/css/style8a4f.css?v1.1.0" />
 </head>
 
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
@@ -250,7 +250,7 @@ if (isset($_POST['register'])) {
         </div>
     </div>
 </body>
-<script src="App/template/assets/js/bundle.js"></script>
-<script src="App/template/assets/js/scripts.js"></script>
+<script src="Public/assets/js/bundle.js"></script>
+<script src="Public/assets/js/scripts.js"></script>
 
 </html>

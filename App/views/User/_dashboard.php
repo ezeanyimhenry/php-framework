@@ -70,9 +70,9 @@ require_once('App/views/_query.php');
                                   class="icon icon-lg ni ni-chart-up text-primary"
                                 ></em>
                                 <h5 class="title mt-2 mb-3">
-                                  Avg. Client Rating
+                                  Total Balance
                                 </h5>
-                                <div class="amount h3">7.8/10</div>
+                                <div class="amount h3">$ <?= $accountDetails['balance'] ?? "0" ?></div>
                                 <div
                                   class="d-flex align-items-center smaller flex-wrap"
                                 >

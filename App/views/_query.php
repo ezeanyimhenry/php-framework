@@ -1,9 +1,13 @@
 <?php 
 // session_start();
-use Framework\Classes\User;
+use Framework\Classes\Account;
+use App\Models\UserModel;
 
-
-$user = new User($dbConnection);
 
 $user_id = $_SESSION['user_id'];
-$userDetails = $user->getUserDetails($user_id);
+
+$user = new UserModel($dbConnection);
+$account = new Account($dbConnection, $user_id);
+
+$userDetails = $user->getUserById($user_id);
+$accountDetails = $account->getAccountDetails();
