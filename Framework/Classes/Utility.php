@@ -2,11 +2,12 @@
 
 namespace Framework\Classes;
 
+use App\Models\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// require_once ('config.php');
+require_once('config.php');
 require 'Framework/Vendors/PHPMailer/src/PHPMailer.php';
 require 'Framework/Vendors/PHPMailer/src/SMTP.php';
 require 'Framework/Vendors/PHPMailer/src/Exception.php';
@@ -26,35 +27,26 @@ class Utility
     }
 
 
-    static function checkRememberMeCookie()
+    static function checkRememberMeCookie($dbConnection)
     {
         if (isset($_COOKIE['remember_me'])) {
             // Split the cookie value into token, username/email, and password hash
             list($token, $usernameOrEmail) = explode(':', $_COOKIE['remember_me']);
+            // Check if the token exists in the database and retrieve user data
+            $userModel = new UserModel($dbConnection); // You may need to inject this dependency instead of creating it here
+            $userData = $userModel->findUserByToken($token);
 
-            return [
-                'token' => $token,
-                'usernameOrEmail' => $usernameOrEmail,
-            ];
+            if ($userData) {
+                // Token is valid; log the user in and return user data
+                $_SESSION['user_id'] = $userData['id'];
+                $_SESSION['user_role'] = $userData['role'];
+                return $userData;
+            }
         }
         return null; // No Remember Me cookie found
     }
 
-    static function findUserByToken($dbConnection, $token)
-    {
-        $sql = "SELECT id, username FROM users WHERE remember_me_token = ?";
-        $stmt = $dbConnection->prepare($sql);
-        $stmt->execute([$token]);
-        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        if ($user) {
-            // Log the user in
-            $_SESSION['user_id'] = $user['id'];
-            return true;
-        }
-
-        return false;
-    }
 
     static function redirect($url)
     {

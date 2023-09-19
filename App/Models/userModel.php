@@ -94,6 +94,14 @@ class UserModel
         $stmt->execute([$user_id]);
     }
 
+    public function findUserByToken($token)
+    {
+        $sql = "SELECT * FROM users WHERE remember_me_token = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$token]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function isLoggedIn()
     {
         return isset($_SESSION['user_id']);

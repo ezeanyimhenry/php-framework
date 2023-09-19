@@ -1,59 +1,8 @@
 <?php
-use App\Models\UserModel;
-use App\Controllers\UserController;
-use Framework\Classes\Utility;
-use Framework\Validators\LoginValidator;
+use App\Controllers\LoginController;
 
-// Check if there is a valid "Remember Me" token and password hash
-$rememberMeData = Utility::checkRememberMeCookie();
-
-if ($rememberMeData !== null) {
-  $token = $rememberMeData['token'];
-  $usernameOrEmail = $rememberMeData['usernameOrEmail'];
-  $preFilledUsernameOrEmail = $usernameOrEmail;
-  if (Utility::findUserByToken($dbConnection, $token))
-    Utility::redirect('/dashboard');
-
-} else {
-  $preFilledUsernameOrEmail = "";
-}
-
-if (isset($_POST['login'])) {
-
-  $identifier = $_POST['identifier']; // This should be either the email or username entered by the user
-  $password = $_POST['password'];
-
-  $validationErrors = LoginValidator::validateLoginData($dbConnection, $_POST);
-
-  if (!empty($validationErrors)) {
-    foreach ($validationErrors as $error) {
-      echo $error . "<br>";
-    }
-  } else {
-    $user = new UserController($dbConnection);
-    $userM = new UserModel($dbConnection);
-
-    if ($user->login($identifier, $password)) {
-      $user_id = $_SESSION['user_id']; // Assuming you have a user ID in the session
-      if (isset($_POST['remember_me']) && $_POST['remember_me'] === '1') {
-        $token = Utility::generateRandomToken();
-        $userM->setRememberMeToken($user_id, $token);
-        Utility::setRememberMeCookie($token, $identifier);
-      } else {
-        $userM->clearRememberMeToken($user_id);
-      }
-      // Redirect to the dashboard using the 'redirect' function
-      Utility::redirect("/dashboard");
-    } else {
-      $loginError = "Login failed. Please check your credentials.";
-    }
-
-  }
-
-
-
-}
-
+$loginController = new LoginController($dbConnection);
+$loginController->handleLogin();
 
 ?>
 <!DOCTYPE html>
@@ -97,7 +46,7 @@ if (isset($_POST['login'])) {
                           <div class="form-control-wrap">
                             <input type="text" class="form-control" id="identifier" name="identifier"
                               placeholder="Enter email or username"
-                              value="<?php echo htmlspecialchars($preFilledUsernameOrEmail); ?>" required />
+                              required />
                           </div>
                         </div>
                       </div>
