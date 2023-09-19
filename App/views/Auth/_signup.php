@@ -1,63 +1,3 @@
-<?php
-
-use App\Controllers\UserController;
-use Framework\Classes\Utility;
-use Framework\Validators\RegistrationValidator;
-
-
-if (isset($_POST['register'])) {
-    $user = new UserController($dbConnection);
-
-    $firstName = $_POST['firstname'];
-    $lastName = $_POST['lastname'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm_password'];
-
-    // Validate the registration data using the RegistrationValidator class
-    $validationErrors = RegistrationValidator::validateRegistrationData($_POST);
-
-    // Check if there are validation errors
-    if (!empty($validationErrors)) {
-        foreach ($validationErrors as $error) {
-            echo $error . "<br>";
-        }
-    } else {
-        // No validation errors, proceed with registration
-        $result = $user->register($firstName, $lastName, $username, $email, $password, $confirmPassword);
-
-        if ($result['success']) {
-
-            $recipient = $email;
-            $subject = 'Registration Successful';
-            $templateName = 'auth';
-
-            // Define variables to populate in the template
-            $templateVariables = [
-                'websiteName' => WEBSITE_NAME,
-                'websiteURL' => WEBSITE_URL,
-                'emailTitle' => $subject,
-                'recipientName' => $firstName,
-                'body' => 'Thank you for registering with us.',
-                // Add more variables as needed
-            ];
-
-            if (Utility::sendEmail($recipient, $subject, $templateName, $templateVariables)) {
-                echo 'Email sent successfully.';
-            } else {
-                echo 'Email sending failed.';
-            }
-
-            echo "Registration successful. " . $result['message'];
-        } else {
-            echo "Registration failed. " . $result['message'];
-        }
-    }
-
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,7 +31,7 @@ if (isset($_POST['register'])) {
                                             </p>
                                         </div>
                                     </div>
-                                    <form action="#" method="post">
+                                    <form action="/register" method="post">
                                         <div class="row gy-3">
                                             <div class="col-12">
                                                 <div class="form-group">

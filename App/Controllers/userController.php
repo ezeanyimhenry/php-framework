@@ -1,18 +1,14 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Controllers\BaseController;
 use Framework\Classes\Utility;
 
-class UserController
+class UserController extends BaseController
 {
-    private $db;
-    private $userModel;
-
     public function __construct($dbConnection)
     {
-        $this->db = $dbConnection;
-        $this->userModel = new UserModel($dbConnection);
+        parent::__construct($dbConnection);
     }
 
     public function register($firstName, $lastName, $username, $email, $password, $confirmPassword)
@@ -70,4 +66,16 @@ class UserController
 
         return false;
     }
+
+    public function isLoggedIn()
+    {
+        return isset($_SESSION['user_id']);
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        Utility::redirect("/signin");
+    }
+    
 }

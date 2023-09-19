@@ -10,21 +10,21 @@
     <div class="nk-main">
 
       <?php
-        include("App/views/layout/user/sidebar.php")
+        include_once("App/views/layout/user/sidebar.php")
       ?>
 
       <div class="nk-wrap">
 
         <?php
-          include("App/views/layout/user/header.php")
+          include_once("App/views/layout/user/header.php")
         ?>
 
         <?php
-          include($contentPage);
+          include_once($contentPage);
         ?>
 
         <?php
-          include("App/views/layout/user/footer.php")
+          include_once("App/views/layout/user/footer.php")
         ?>
 
       </div>

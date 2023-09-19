@@ -1,10 +1,3 @@
-<?php
-use App\Controllers\LoginController;
-
-$loginController = new LoginController($dbConnection);
-$loginController->handleLogin();
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +31,7 @@ $loginController->handleLogin();
                       </p>
                     </div>
                   </div>
-                  <form action="#" method="post">
+                  <form action="/login" method="post">
                     <div class="row gy-3">
                       <div class="col-12">
                         <div class="form-group">

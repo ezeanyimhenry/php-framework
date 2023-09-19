@@ -1,9 +1,10 @@
-<?php 
-namespace App\Controller;
+<?php
+namespace App\Controllers;
+
 use App\Controllers\UserController;
 use App\Models\UserModel;
 
-class baseController
+class BaseController
 {
     protected $db;
     protected $userModel;
@@ -12,7 +13,15 @@ class baseController
     public function __construct($dbConnection)
     {
         $this->db = $dbConnection;
-        $this->userModel = new UserModel($dbConnection);
-        $this->userController = new UserController($dbConnection);
+    }
+
+    protected function createUserModel()
+    {
+        return new UserModel($this->db);
+    }
+
+    protected function createUserController()
+    {
+        return new UserController($this->db);
     }
 }

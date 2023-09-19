@@ -1,11 +1,11 @@
 <?php 
 namespace App\Controllers;
 
-use App\Controller\baseController;
+use App\Controllers\BaseController;
 use Framework\Classes\Utility;
 use Framework\Validators\RegistrationValidator;
 
-class SignupController extends baseController
+class SignupController extends BaseController
 {
     public function __construct($dbConnection)
     {
@@ -16,13 +16,13 @@ class SignupController extends baseController
     {
         // Display the signup form view
         // You can load your signup form HTML here
-        include_once 'path/to/signup-form-view.php';
+        include_once 'App/views/auth/_signup.php';
     }
 
     public function registerUser()
     {
+        $userController = $this->createUserController();
         if (isset($_POST['register'])) {
-            $userController = new userController($this->db);
 
             $firstName = $_POST['firstname'];
             $lastName = $_POST['lastname'];
@@ -71,6 +71,8 @@ class SignupController extends baseController
                     echo "Registration failed. " . $result['message'];
                 }
             }
+        }else{
+            Utility::redirect("/signup");
         }
     }
 }

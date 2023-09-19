@@ -2,7 +2,7 @@
 
 use Framework\Classes\Utility;
 
-require_once('App/views/_query.php');
+// require_once('App/views/_query.php');
 
 // echo ;
 ?>

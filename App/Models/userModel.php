@@ -102,14 +102,5 @@ class UserModel
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function isLoggedIn()
-    {
-        return isset($_SESSION['user_id']);
-    }
-
-    public function logout()
-    {
-        session_destroy();
-        Utility::redirect("/signin");
-    }
+    
 }
