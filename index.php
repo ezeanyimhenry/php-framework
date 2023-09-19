@@ -1,51 +1,36 @@
-<?php
-use Framework\Database\Database;
-use Framework\Middleware\AuthMiddleware;
-
+<?php 
 session_start();
 
 require_once('autoload.php');
 require_once('config.php');
+require_once('Framework/Database/Database.php');
 
-// Create an instance of the DatabaseConnection class
+use Framework\Database\Database;
+
 $database = new Database($dsn, $username, $password);
+$dbConnection = $database->getConnection();
 
-// Get the database connection
-$dbConnection = $database->getConnection(); // Use $dbConnection for database operations
-
-$authMiddleware = new AuthMiddleware();
+$routes = require 'Routes/web.php';
 
 $request = $_SERVER['REQUEST_URI'];
 
-switch ($request) {
+if (isset($routes[$request])) {
+    $handler = $routes[$request];
 
-    case '':
-    case '/':
-        require __DIR__ . '/App/views/_index.php';
-        break;
+    if (is_array($handler)) {
+        $middlewareClass = $handler['middleware'];
+        $controllerClass = $handler['controller'];
+        $method = $handler['method'];
 
-    case '/signin':
-        require __DIR__ . '/App/views/auth/_signin.php';
-        break;
-
-    case '/signup':
-        require __DIR__ . '/App/views/auth/_signup.php';
-        break;
-
-    case '/dashboard':
-    case '/logout':
-        $authMiddleware->isAuthenticated($dbConnection);
-
-        if ($request === '/dashboard') {
-            $contentPage = __DIR__ . '/App/views/user/_dashboard.php';
-            require __DIR__ . '/App/views/user/_index.php';
-        } elseif ($request === '/logout') {
-            require __DIR__ . '/App/views/user/_logout.php';
+        $middleware = new $middlewareClass();
+        if ($middleware->isAuthenticated($dbConnection)) {
+            $controller = new $controllerClass($dbConnection);
+            $controller->$method();
         }
-        break;
-
-    default:
-        http_response_code(404);
-        require __DIR__ . '/App/views/_404.php';
-        break;
+    } else {
+        require __DIR__ . $handler;
+    }
+} else {
+    http_response_code(404);
+    require __DIR__ . '/App/views/_404.php';
 }
