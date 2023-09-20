@@ -28,12 +28,13 @@ if (isset($routes[$request])) {
                 $controller = new $controllerClass($dbConnection);
                 $controller->$method();
             }
-        }
-        $controllerClass = $handler[0]; // Get the controller class
-        $method = $handler[1]; // Get the method
-    
-        $controller = new $controllerClass($dbConnection);
-        $controller->$method();
+        }else{
+            $controllerClass = $handler[0]; // Get the controller class
+            $method = $handler[1]; // Get the method
+        
+            $controller = new $controllerClass($dbConnection);
+            $controller->$method();
+        }    
         
     }else {
         require __DIR__ . $handler;
