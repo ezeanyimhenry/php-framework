@@ -18,16 +18,24 @@ if (isset($routes[$request])) {
     $handler = $routes[$request];
 
     if (is_array($handler)) {
-        $middlewareClass = $handler['middleware'];
-        $controllerClass = $handler['controller'];
-        $method = $handler['method'];
-
-        $middleware = new $middlewareClass();
-        if ($middleware->isAuthenticated($dbConnection)) {
-            $controller = new $controllerClass($dbConnection);
-            $controller->$method();
+        if(isset($handler['middleware'], $handler['controller'], $handler['method'])){
+            $middlewareClass = $handler['middleware'];
+            $controllerClass = $handler['controller'];
+            $method = $handler['method'];
+    
+            $middleware = new $middlewareClass();
+            if ($middleware->isAuthenticated($dbConnection)) {
+                $controller = new $controllerClass($dbConnection);
+                $controller->$method();
+            }
         }
-    } else {
+        $controllerClass = $handler[0]; // Get the controller class
+        $method = $handler[1]; // Get the method
+    
+        $controller = new $controllerClass($dbConnection);
+        $controller->$method();
+        
+    }else {
         require __DIR__ . $handler;
     }
 } else {
