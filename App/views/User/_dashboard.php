@@ -29,6 +29,8 @@ use Framework\Classes\Utility;
                                 >Your IP Address: <?= Utility::getUserInfo()['ip_address'] ?></span
                               >
                             </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planTypeModal"> Launch static
+    backdrop modal</button>
                             <div class="card-tools">
                               <div class="dropdown">
                                 <a

@@ -2,31 +2,33 @@
 <html lang="en">
 
 <?php
-  include("App/views/layout/user/head.php")
-?>
+include("App/views/layout/user/head.php")
+  ?>
 
 <body class="nk-body" data-sidebar-collapse="lg" data-navbar-collapse="lg">
   <div class="nk-app-root">
     <div class="nk-main">
 
       <?php
-        include_once("App/views/layout/user/sidebar.php")
-      ?>
+      include_once("App/views/layout/user/sidebar.php")
+        ?>
 
       <div class="nk-wrap">
 
         <?php
-          include_once("App/views/layout/user/header.php")
+        include_once("App/views/layout/user/header.php")
+          ?>
+
+        <?php
+        include_once($contentPage);
         ?>
 
         <?php
-          include_once($contentPage);
-        ?>
-
+        include_once("App/views/layout/user/footer.php")
+          ?>
         <?php
-          include_once("App/views/layout/user/footer.php")
-        ?>
-
+        include_once("App/views/user/modals/_plan_type_modal.php")
+          ?>
       </div>
     </div>
   </div>
