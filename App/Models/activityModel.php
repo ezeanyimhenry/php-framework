@@ -7,6 +7,28 @@ use App\Models\Model;
 class ActivityModel extends Model
 {
 
+    public function getAllUserActivity(){
+        try {
+            $query = 'SELECT * FROM activities WHERE user_id = :userID ORDER BY create_time DESC';
+
+            $params = [
+                ':userID' => $_SESSION['user_id'],
+            ];
+
+            // Call the executeQuery method with the query and parameters
+            $statement = $this->executeQuery($query, $params);
+
+            // Fetch all plan types as an associative array
+            $activities = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $activities;
+        } catch (\PDOException $e) {
+            // Handle any database errors here
+            // For example, log the error or return an empty array
+            return [];
+        }
+    }
+
     public function getActivitiesByType($activityType)
     {
         try {
@@ -57,4 +79,6 @@ class ActivityModel extends Model
             return [];
         }
     }
+
+    
 }
