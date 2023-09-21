@@ -2,25 +2,20 @@
 
 namespace App\Models;
 
-class InvestmentModel
-{
-    private $db;
+use App\Models\Model;
 
-    public function __construct($dbConnection)
-    {
-        $this->db = $dbConnection;
-    }
+class InvestmentModel extends Model
+{
 
     public function getPlans()
     {
         try {
             $query = 'SELECT * FROM plans';
-            $statement = $this->db->prepare($query);
-            $statement->execute();
-            
+            $statement = $this->executeQuery($query);
+
             // Fetch all plan types as an associative array
             $planTypes = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            
+
             return $planTypes;
         } catch (\PDOException $e) {
             // Handle any database errors here
@@ -33,17 +28,18 @@ class InvestmentModel
         try {
             // Prepare the SQL query
             $query = "SELECT * FROM plans WHERE plan_type = :type";
-            $statement = $this->db->prepare($query);
-            
-            // Bind the parameter
-            $statement->bindParam(':type', $type, \PDO::PARAM_STR);
-            
-            // Execute the query
-            $statement->execute();
-            
+
+            // Bind the parameter using its name and value
+            $params = [
+                ['name' => ':type', 'value' => $type],
+            ];
+
+            // Call the executeQuery method with the query and parameters
+            $statement = $this->executeQuery($query, $params);
+
             // Fetch all rows as an associative array
             $investmentPlans = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            
+
             return $investmentPlans;
         } catch (\PDOException $e) {
             // Handle database errors, e.g., log or display an error message
@@ -57,7 +53,7 @@ class InvestmentModel
         // Insert a new investment record into the database
         $stmt = $this->db->prepare('INSERT INTO investments (user_id, investment_id,amount, plan, percent, days_gone, days_left, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())');
         $stmt->execute([$userId, $investmentID, $amount, $selected_plan, $roi, '0', $duration]);
-        
+
         // Return the ID of the newly created investment
         return $this->db->lastInsertId();
     }
@@ -75,7 +71,7 @@ class InvestmentModel
         // Update an investment record in the database
         $stmt = $this->db->prepare('UPDATE investments SET amount = ?, type = ? WHERE id = ?');
         $stmt->execute([$amount, $type, $investmentId]);
-        
+
         // Check if the update was successful
         return $stmt->rowCount() > 0;
     }
@@ -85,7 +81,7 @@ class InvestmentModel
         // Delete an investment record from the database
         $stmt = $this->db->prepare('DELETE FROM investments WHERE id = ?');
         $stmt->execute([$investmentId]);
-        
+
         // Check if the deletion was successful
         return $stmt->rowCount() > 0;
     }

@@ -2,21 +2,23 @@
 namespace App\Models;
 use Framework\Classes\Utility;
 
-class UserModel
-{
-    private $db;
+use App\Models\Model;
 
-    public function __construct($dbConnection)
-    {
-        $this->db = $dbConnection;
-    }
+class UserModel extends Model
+{
 
     public function getUserById($userId)
     {
-        $sql = "SELECT * FROM users WHERE id = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$userId]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM users WHERE id = :userId";
+        
+        $params = [
+            ':userId' => $userId, 
+        ];
+
+        // Call the executeQuery method with the query and parameters
+        $statement = $this->executeQuery($query, $params);
+        
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function getUserByEmail($email)

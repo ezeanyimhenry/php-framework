@@ -2,27 +2,27 @@
 
 namespace App\Models;
 
-class PlanModel
-{
-    private $db;
+use App\Models\Model;
 
-    public function __construct($dbConnection)
-    {
-        $this->db = $dbConnection;
-    }
+class PlanModel extends Model
+{
 
     public function getPlanDetails($planName, $planType)
     {
         try {
             $query = 'SELECT * FROM plans WHERE plan_name = :name AND plan_type = :type';
-            $statement = $this->db->prepare($query);
-            $statement->bindParam(':name', $planName, \PDO::PARAM_STR);
-            $statement->bindParam(':type', $planType, \PDO::PARAM_STR);
-            $statement->execute();
-            
+
+            $params = [
+                ['name' => ':name', 'value' => $planName],
+                ['name' => ':type', 'value' => $planType],
+            ];
+
+            // Call the executeQuery method with the query and parameters
+            $statement = $this->executeQuery($query, $params);
+
             // Fetch all plan types as an associative array
             $planTypes = $statement->fetchAll(\PDO::FETCH_ASSOC);
-            
+
             return $planTypes;
         } catch (\PDOException $e) {
             // Handle any database errors here

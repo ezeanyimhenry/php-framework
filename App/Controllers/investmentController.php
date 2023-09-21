@@ -10,21 +10,12 @@ use Framework\Classes\Utility;
 
 class InvestmentController extends BaseController
 {
-    private $dbConnection;
-    public function __construct($dbConnection)
-    {
-        parent::__construct($dbConnection);
-        $this->dbConnection = $dbConnection;
-    }
-
     public function showInvestForm()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['investButton'])) {
             $type = $_POST['type'];
-            $investmentModel = new InvestmentModel($this->dbConnection);
+            $investmentModel = new InvestmentModel($this->db);
             $investmentPlans = $investmentModel->getPlansByType($type);
-            // var_dump($type);
-            // die();
             $contentPage = 'App/views/user/_invest.php';
             include_once 'App/views/user/_index.php';
         } else {
@@ -46,7 +37,7 @@ class InvestmentController extends BaseController
                 $planName = $data['planName'];
                 $planType = $data['planType'];
                 // Create an instance of the PlanModel
-                $planModel = new PlanModel($this->dbConnection);
+                $planModel = new PlanModel($this->db);
 
                 // Fetch plan details using a method in your PlanModel
                 $planDetails = $planModel->getPlanDetails($planName, $planType);
@@ -80,9 +71,10 @@ class InvestmentController extends BaseController
         $selected_plan = $_POST['plan_select'];
         $roi = $_POST['roi'];
         $duration = $_POST['duration'];
-        $investmentModel = new InvestmentModel($this->dbConnection);
+        $source = $_POST['source'];
+        $investmentModel = new InvestmentModel($this->db);
         $investmentModel->createInvestment($userID, $amount, $selected_plan, $roi, $duration);
-        Utility::redirect("/wallet");
+        ($source === 'new_deposit') ? Utility::redirect("/wallet") : Utility::redirect("/history");
         exit();
         }
 

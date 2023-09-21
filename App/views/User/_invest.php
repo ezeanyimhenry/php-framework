@@ -158,6 +158,20 @@ use Framework\Classes\Utility;
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row mb-3">
+                                            <label for="colFormLabel" class="col-sm-2 col-form-label">Select
+                                                Source</label>
+                                            <div class="col-sm-10">
+                                                <div class="form-control-wrap">
+                                                    <select name="source" id="source"
+                                                        class="js-select" data-search="true"
+                                                        data-sort="false">
+                                                        <option value="new_deposit" selected>New Deposit</option>
+                                                        <option value="from_balance">From Balance</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
 
 
 

@@ -81,43 +81,14 @@
               <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
                   <li class="nk-menu-item has-sub">
-                    <a href="#" class="nk-menu-link nk-menu-toggle"
+                    <a href="/dashboard" class="nk-menu-link"
                       ><span class="nk-menu-icon"
                         ><em class="icon ni ni-dashboard"></em></span
                       ><span class="nk-menu-text">Dashboard</span></a
                     >
-                    <ul class="nk-menu-sub">
-                      <li class="nk-menu-item">
-                        <a href="index.html" class="nk-menu-link"
-                          ><span class="nk-menu-text"
-                            >Default / Analytics</span
-                          ></a
-                        >
-                      </li>
-                      <li class="nk-menu-item">
-                        <a href="index-ecommerce.html" class="nk-menu-link"
-                          ><span class="nk-menu-text">eCommerce</span></a
-                        >
-                      </li>
-                      <li class="nk-menu-item">
-                        <a href="index-project.html" class="nk-menu-link"
-                          ><span class="nk-menu-text">Project Manage</span></a
-                        >
-                      </li>
-                      <li class="nk-menu-item">
-                        <a href="index-marketing.html" class="nk-menu-link"
-                          ><span class="nk-menu-text">Marketing</span></a
-                        >
-                      </li>
-                      <li class="nk-menu-item">
-                        <a href="index-nft.html" class="nk-menu-link"
-                          ><span class="nk-menu-text">NFT</span></a
-                        >
-                      </li>
-                    </ul>
                   </li>
                   <li class="nk-menu-heading">
-                    <h6 class="overline-title">Applications</h6>
+                    <h6 class="overline-title">Transactions</h6>
                   </li>
                   <li class="nk-menu-item">
                     <a href="apps/chat/chats.html" class="nk-menu-link"

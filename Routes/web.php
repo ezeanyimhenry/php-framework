@@ -4,6 +4,8 @@ use App\Controllers\SignupController;
 use App\Controllers\LoginController;
 use App\Controllers\DashboardController;
 use App\Controllers\InvestmentController;
+use App\Controllers\WalletController;
+
 use Framework\Middleware\AuthMiddleware;
 
 return [
@@ -32,6 +34,16 @@ return [
         'middleware' => AuthMiddleware::class,
         'controller' => InvestmentController::class,
         'method' => 'Invest',
+    ],
+    '/wallet' => [
+        'middleware' => AuthMiddleware::class,
+        'controller' => WalletController::class,
+        'method' => 'showWallets',
+    ],
+    '/wallet/fetchWalletDetails' => [
+        'middleware' => AuthMiddleware::class,
+        'controller' => WalletController::class,
+        'method' => 'showWalletDetails',
     ],
     '/logout' => [
         'middleware' => AuthMiddleware::class,
