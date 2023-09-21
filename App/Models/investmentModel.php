@@ -31,7 +31,7 @@ class InvestmentModel extends Model
 
             // Bind the parameter using its name and value
             $params = [
-                ['name' => ':type', 'value' => $type],
+                ':type' => $type,
             ];
 
             // Call the executeQuery method with the query and parameters
@@ -47,12 +47,12 @@ class InvestmentModel extends Model
         }
     }
 
-    public function createInvestment($userId, $amount, $selected_plan, $roi, $duration)
+    public function createInvestment($userId, $amount, $selected_plan, $roi, $duration, $status)
     {
         $investmentID = bin2hex(random_bytes(2));
         // Insert a new investment record into the database
-        $stmt = $this->db->prepare('INSERT INTO investments (user_id, investment_id,amount, plan, percent, days_gone, days_left, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())');
-        $stmt->execute([$userId, $investmentID, $amount, $selected_plan, $roi, '0', $duration]);
+        $stmt = $this->db->prepare('INSERT INTO investments (user_id, investment_id,amount, plan, percent, days_gone, days_left, status, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())');
+        $stmt->execute([$userId, $investmentID, $amount, $selected_plan, $roi, '0', $duration, $status]);
 
         // Return the ID of the newly created investment
         return $this->db->lastInsertId();

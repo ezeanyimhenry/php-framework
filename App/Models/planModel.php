@@ -13,8 +13,8 @@ class PlanModel extends Model
             $query = 'SELECT * FROM plans WHERE plan_name = :name AND plan_type = :type';
 
             $params = [
-                ['name' => ':name', 'value' => $planName],
-                ['name' => ':type', 'value' => $planType],
+                ':name' => $planName,
+                ':type' => $planType,
             ];
 
             // Call the executeQuery method with the query and parameters

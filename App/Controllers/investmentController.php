@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\ActivityModel;
 use App\Models\InvestmentModel;
 use App\Models\PlanModel;
 use App\Models\PlanTypeModel;
@@ -73,8 +74,17 @@ class InvestmentController extends BaseController
         $duration = $_POST['duration'];
         $source = $_POST['source'];
         $investmentModel = new InvestmentModel($this->db);
-        $investmentModel->createInvestment($userID, $amount, $selected_plan, $roi, $duration);
-        ($source === 'new_deposit') ? Utility::redirect("/wallet") : Utility::redirect("/history");
+        $activityModel = new ActivityModel($this->db);
+        
+        if ($source === 'new_deposit'){
+            $investmentModel->createInvestment($userID, $amount, $selected_plan, $roi, $duration, 'pending');
+            $activityModel->addActivity('Investment', $amount, 'USD', 'Invested From New Deposit', 'pending');
+            Utility::redirect("/wallet");
+        }else{
+            $investmentModel->createInvestment($userID, $amount, $selected_plan, $roi, $duration, 'active');
+            $activityModel->addActivity('Investment', $amount, 'USD', 'Invested From Balance', 'active');
+            Utility::redirect("/history");
+        } 
         exit();
         }
 
