@@ -8,4 +8,5 @@
   </title>
   <link rel="shortcut icon" href="Public/images/favicon.png" />
   <link rel="stylesheet" href="Public/assets/css/style8a4f.css?v1.1.0" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>

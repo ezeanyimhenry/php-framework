@@ -7,19 +7,22 @@
                     data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-group"> 
-                    <label class="form-label">Select Investment Type</label>
-                    <div class="form-control-wrap">
-                        <select id="planTypeSelect" class="js-select" data-search="true" data-sort="false">
-                            <?php foreach ($planTypes as $type): ?>
-                                <option value="<?= $type['name'] ?>">
-                                    <?= $type['name'] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                <form method="POST" action="/investment">
+                    <div class="form-group">
+                        <label class="form-label">Select Investment Type</label>
+                        <div class="form-control-wrap">
+                            <select id="planTypeSelect" name="type" class="js-select" data-search="true" data-sort="false">
+                                <?php foreach ($planTypes as $type): ?>
+                                    <option value="<?= $type['name'] ?>">
+                                        <?= $type['name'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <button class="btn btn-primary" id="investButton">Invest</button>
+                    <button type="submit" name="investButton" class="btn btn-primary" id="investButton">Invest</button>
+                </form>
+
             </div>
             <div class="modal-footer"> <button type="button" class="btn btn-sm btn-secondary"
                     data-bs-dismiss="modal">Close</button> <button type="button"
@@ -28,11 +31,11 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     // JavaScript to handle user interaction
     document.getElementById('investButton').addEventListener('click', function () {
         var selectedType = document.getElementById('planTypeSelect').value;
         // Redirect to /invest with the selected type as a parameter
-        window.location.href = '/invest?type=' + selectedType;
+        window.location.href = '/investment?type=' + selectedType;
     });
-</script>
+</script> -->
