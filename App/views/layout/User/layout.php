@@ -35,6 +35,7 @@ include("App/views/layout/user/head.php")
 </body>
 <script src="Public/assets/js/bundle.js"></script>
 <script src="Public/assets/js/scripts.js"></script>
+<script src="Public/assets/js/data-tables/data-tables.js"></script>
 <div class="offcanvas offcanvas-end offcanvas-size-lg" id="notificationOffcanvas">
   <div class="offcanvas-header border-bottom border-light">
     <h5 class="offcanvas-title" id="offcanvasTopLabel">
