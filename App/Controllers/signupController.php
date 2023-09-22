@@ -14,8 +14,6 @@ class SignupController extends BaseController
 
     public function showSignupForm()
     {
-        // Display the signup form view
-        // You can load your signup form HTML here
         include_once 'App/views/auth/_signup.php';
     }
 

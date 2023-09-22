@@ -66,6 +66,19 @@ class InvestmentModel extends Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function getActiveInvestments()
+    {
+        $query = 'SELECT * FROM investments WHERE status = :status and days_left > 0';
+        $params = [
+            ':status' => 'active',
+        ];
+        $statement = $this->executeQuery($query, $params);
+
+        $investmentPlans = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $investmentPlans;
+    }
+
     public function updateInvestment($investmentId, $amount, $type)
     {
         // Update an investment record in the database
@@ -74,6 +87,47 @@ class InvestmentModel extends Model
 
         // Check if the update was successful
         return $stmt->rowCount() > 0;
+    }
+
+    public function updateInvestmentEarning($investmentId, $newEarnings, $nextDate, $daysLeft, $daysPassed)
+    {
+        $daysLeft--;
+        $daysPassed++;
+        $query = "UPDATE investments SET earned = :newEarnings, next_date = :nextDate, days_gone = :daysPassed, days_left = :daysLeft WHERE investment_id = :investmentId";
+        $params = [
+            ':newEarnings' => $newEarnings,
+            ':nextDate' => $nextDate,
+            ':daysPassed' => $daysPassed,
+            ':daysLeft' => $daysLeft,
+            ':investmentId' => $investmentId,
+        ];
+        $statement = $this->executeQuery($query, $params);
+
+        return $statement;
+    }
+
+    public function markInvestmentAsCompleted($investmentId, $userId, $retunAmount)
+    {
+        $accountModel = new AccountModel($this->db);
+        $accountBalance = $accountModel->getBalance($userId);
+        $newBalance = $accountBalance + $retunAmount;
+
+        $query = "UPDATE investments SET earned = 0, status = 'completed' WHERE investment_id = :investmentId";
+        $run = "INSERT INTO accounts (user_id, balance) VALUES (:user_id, :balance) ON DUPLICATE KEY UPDATE balance = :balance";
+
+        $params = [
+            ':investmentId' => $investmentId,
+        ];
+
+        $details = [
+            ':user_id' => $userId,
+            ':balance' => $newBalance
+        ];
+
+        $statement = $this->executeQuery($query, $params);
+        $this->executeQuery($run, $details);
+
+        return $statement;
     }
 
     public function deleteInvestment($investmentId)

@@ -127,10 +127,45 @@ class Utility
             $userInfo['operating_system'] = 'Unknown';
         }
 
-        // Get user's host name (as shown in the previous answer)
-        // ...
+        // Get user's timezone using ip-api.com (adjust the URL to your needs)
+        $ipApiUrl = 'http://ip-api.com/json/';
+        $ipApiData = file_get_contents($ipApiUrl);
+
+        if ($ipApiData) {
+            $ipApiResult = json_decode($ipApiData, true);
+            $userTimezone = $ipApiResult['timezone'];
+        } else {
+            $userTimezone = 'Unknown';
+        }
+
+        $userInfo['user_timezone'] = $userTimezone;
+
+        // Get user's host name (if available)
+        $userInfo['host_name'] = gethostbyaddr($userIP);
 
         return $userInfo;
+    }
+
+    static function getAllTimezones() {
+        $apiEndpoint = 'http://worldtimeapi.org/api/timezone';
+    
+        // Make the API request using file_get_contents
+        $response = file_get_contents($apiEndpoint);
+    
+        // Check if the response is successful
+        if ($response) {
+            // Decode the JSON response
+            $timezones = json_decode($response);
+    
+            // Return the timezones as an array
+            if (is_array($timezones)) {
+                return $timezones;
+            } else {
+                return [];
+            }
+        } else {
+            return [];
+        }
     }
 
 

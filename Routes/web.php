@@ -5,6 +5,7 @@ use App\Controllers\LoginController;
 use App\Controllers\DashboardController;
 use App\Controllers\InvestmentController;
 use App\Controllers\ActivityController;
+use App\Controllers\CronController;
 use App\Controllers\WalletController;
 
 use Framework\Middleware\AuthMiddleware;
@@ -16,6 +17,7 @@ return [
     '/login' => [LoginController::class, 'handleLogin'],
     '/signup' => [SignupController::class, 'showSignupForm'],
     '/register' => [SignupController::class, 'registerUser'],
+    '/cron' => [CronController::class, 'processDailyInvestmentEarnings'],
     '/dashboard' => [
         'middleware' => AuthMiddleware::class,
         'controller' => DashboardController::class,
