@@ -6,6 +6,7 @@ use App\Controllers\DashboardController;
 use App\Controllers\InvestmentController;
 use App\Controllers\ActivityController;
 use App\Controllers\CronController;
+use App\Controllers\PasswordResetController;
 use App\Controllers\WalletController;
 
 use Framework\Middleware\AuthMiddleware;
@@ -17,6 +18,10 @@ return [
     '/login' => [LoginController::class, 'handleLogin'],
     '/signup' => [SignupController::class, 'showSignupForm'],
     '/register' => [SignupController::class, 'registerUser'],
+    '/forgot-password' => [PasswordResetController::class, 'showForgotPasswordForm'],
+    '/forgot-password/reset' => [PasswordResetController::class, 'sendPasswordResetEmail'],
+    '/reset-password' => [PasswordResetController::class, 'showResetPasswordForm'],
+    '/reset-password/reset' => [PasswordResetController::class, 'resetPassword'],
     '/cron' => [CronController::class, 'processDailyInvestmentEarnings'],
     '/dashboard' => [
         'middleware' => AuthMiddleware::class,

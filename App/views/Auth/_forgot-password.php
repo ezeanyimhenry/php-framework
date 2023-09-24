@@ -6,7 +6,7 @@
   <meta name="author" content="Softnio" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="Multi-purpose admin dashboard template that especially build for programmers." />
-  <title>Login -
+  <title>Forgot Password -
     <?= WEBSITE_NAME ?>
   </title>
   <link rel="shortcut icon" href="Public/images/favicon.png" />
@@ -24,50 +24,52 @@
                 <div class="card-body h-100 d-flex flex-column justify-content-center">
                   <div class="nk-block-head text-center">
                     <div class="nk-block-head-content">
-                      <h3 class="nk-block-title mb-1">Login to Account</h3>
+                      <h3 class="nk-block-title mb-1">Forgot Password</h3>
                       <p class="small">
-                        Please sign-in to your account and start the
-                        adventure.
+                        Please verify your email to proceed.
                       </p>
                     </div>
                   </div>
-                  <form action="/login" method="post">
+                  <?php if(!isset($success)):  ?>
+                  <form action="/forgot-password/reset" method="post">
+                  <?php else:  ?>
+                  <form action="/reset-password" method="post">
+                  <?php endif  ?>
                     <div class="row gy-3">
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="email" class="form-label">Email or Username</label>
+                          <label for="email" class="form-label">Email</label>
                           <div class="form-control-wrap">
-                            <input type="text" class="form-control" id="identifier" name="identifier"
-                              placeholder="Enter email or username"
+                            <input type="text" class="form-control" id="email" name="email"
+                              placeholder="Enter email" value="<?php if(isset($success)) echo $email; ?>"
                               required />
                           </div>
                         </div>
                       </div>
+                      <?php if(isset($success)):  ?>
+                        <div id="alert" class="alert alert-success" role="alert">
+                        <?= $success ?>
+                                </div>
+                        <div class="row gy-3">
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="password" class="form-label">Password</label>
+                          <label for="email" class="form-label">Confirmation Code</label>
                           <div class="form-control-wrap">
-                            <input type="password" class="form-control" id="password" name="password"
-                              placeholder="Enter password" required />
+                            <input type="text" class="form-control" id="token" name="token"
+                              placeholder="Enter token sent to your email"
+                              required />
                           </div>
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="d-flex flex-wrap justify-content-between">
-                          <div class="form-check form-check-sm">
-                            <input class="form-check-input" type="checkbox" name="remember_me" value="1" id="rememberMe"
-                              <?php echo (isset($rememberMeToken) ? 'checked="checked"' : ''); ?> /><label
-                              class="form-check-label" for="rememberMe">
-                              Remember Me
-                            </label>
-                          </div>
-                          <a href="/forgot-password" class="small">Forgot Password?</a>
-                        </div>
-                      </div>
+                      <?php elseif(isset($error)): ?>
+                        <div id="alert" class="alert alert-danger" role="alert">
+                        <?= $error ?>
+                                </div>
+                    <?php endif ?>
                       <div class="col-12">
                         <div class="d-grid">
-                          <button class="btn btn-primary" type="submit" name="login">
-                            Login to account
+                          <button class="btn btn-primary" type="submit" name="submit">
+                            Submit
                           </button>
                         </div>
                       </div>
