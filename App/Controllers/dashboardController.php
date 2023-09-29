@@ -16,9 +16,12 @@ class DashboardController extends BaseController
         $accountModel = new AccountModel($this->db);
         // Get the user ID from the session
         $user_id = $_SESSION['user_id'];
-
-        $planTypes = $this->showPlanTypeModal();
+        
+        
         $userDetails = $userModel->getUserById($user_id);
+        $_SESSION['userDetails'] = $userDetails;
+        
+        $planTypes = $this->showPlanTypeModal();
         $accountBalance = $accountModel->getBalance();
         $contentPage = 'App/views/user/_dashboard.php';
         include_once 'App/views/user/_index.php';

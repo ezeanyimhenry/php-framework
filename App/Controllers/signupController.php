@@ -34,9 +34,10 @@ class SignupController extends BaseController
 
             // Check if there are validation errors
             if (!empty($validationErrors)) {
-                foreach ($validationErrors as $error) {
-                    echo $error . "<br>";
+                foreach ($validationErrors as $fieldName => $error) {
+                    $_SESSION[$fieldName.'-error'] = $error;
                 }
+                Utility::redirect('/signup');
             } else {
                 // No validation errors, proceed with registration
                 $result = $userController->register($firstName, $lastName, $username, $email, $password, $confirmPassword);
@@ -58,16 +59,17 @@ class SignupController extends BaseController
                     ];
 
                     if (Utility::sendEmail($recipient, $subject, $templateName, $templateVariables)) {
-                        echo 'Email sent successfully.';
+                        $_SESSION['success'] = 'Email sent successfully.';
                     } else {
-                        echo 'Email sending failed.';
+                        $_SESSION['error'] = 'Email sending failed.';
                     }
 
-                    echo "Registration successful. " . $result['message'];
+                    $_SESSION['success'] = "Registration successful. " . $result['message'];
                 } else {
                     // Registration failed
-                    echo "Registration failed. " . $result['message'];
+                    $_SESSION['error'] = "Registration failed. " . $result['message'];
                 }
+                Utility::redirect("/signup");
             }
         }else{
             Utility::redirect("/signup");

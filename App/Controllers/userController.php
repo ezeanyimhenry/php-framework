@@ -35,9 +35,9 @@ class UserController extends BaseController
         // Proceed with user registration
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $userTimezone = Utility::getUserInfo()['user_timezone'];
-        $sql = "INSERT INTO users (firstName, lastName, username, email, password, timezone, create_time) VALUES (?, ?, ?, ?, ?, $userTimezone, NOW())";
+        $sql = "INSERT INTO users (firstName, lastName, username, email, password, timezone, create_time) VALUES (?, ?, ?, ?, ?, ?, NOW())";
         $stmt = $this->db->prepare($sql);
-        if ($stmt->execute([$firstName, $lastName, $username, $email, $hashedPassword])) {
+        if ($stmt->execute([$firstName, $lastName, $username, $email, $hashedPassword, $userTimezone])) {
             return [
                 'success' => true,
                 'message' => "Registration successful."

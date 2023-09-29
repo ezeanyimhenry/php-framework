@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+
+<head>
+    <!-- All Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="<?= WEBSITE_AUTHOR ?>">
+	<meta name="robots" content="">
+	<meta name="keywords" content="<?= WEBSITE_KEYWORDS ?>">
+	<meta name="description" content="<?= WEBSITE_DESCRIPTION ?>">
+	<meta property="og:title" content="<?= WEBSITE_NAME . '-' . WEBSITE_DESCRIPTION ?>">
+	<meta property="og:description" content="<?= WEBSITE_DESCRIPTION ?>">
+	<meta property="og:image" content="Public/social-image.png">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="Public/images/favicon.png">
+
+    <!-- Page Title Here -->
+    <title>Forgot Password -
+        <?= WEBSITE_NAME ?>
+    </title>
+
+
+
+    <link href="Public/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="vh-100">
+    <div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                <div class="col-lg-6 col-md-7 col-sm-12 mx-auto align-self-center">
+                    <div class="login-form">
+                        <div class="text-center">
+                            <h3 class="title">Reset Password</h3>
+                            <p>Choose a new password.</p>
+                        </div>
+                        <?php
+                        // Check if an error message exists and display it
+                        if (isset($_SESSION['error'])) {
+                            echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error'] . '</div>';
+                            // Clear the error message so it's not displayed again
+                            unset($_SESSION['error']);
+                        }
+
+                        // Check if a success message exists and display it
+                        if (isset($_SESSION['success'])) {
+                            echo '<div class="alert alert-success" role="alert">' . $_SESSION['success'] . '</div>';
+                            // Clear the success message so it's not displayed again
+                            unset($_SESSION['success']);
+                        }
+                        ?>
+                        <form action="/reset-password/reset" method="POST">
+                            <div class="mb-4">
+                                <label class="mb-1 text-dark">New Password</label>
+                                <input type="password" class="form-control" id="new_password" name="new_password"
+                                    placeholder="Enter new Password" value="" required />
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-primary" type="submit" name="reset">
+                                Reset Password
+                                </button>
+                            </div>
+                            <!-- <div class="text-center mb-4">
+                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            </div> -->
+                            <h6 class="login-title"><span>Or continue with</span></h6>
+
+                            <div class="mb-3">
+                                <ul class="d-flex align-self-center justify-content-center">
+                                    <li><a target="_blank" href="https://www.facebook.com/"
+                                            class="fab fa-facebook-f btn-facebook"></a></li>
+                                    <li><a target="_blank" href="https://www.google.com/"
+                                            class="fab fa-google-plus-g btn-google-plus mx-2"></a></li>
+                                    <li><a target="_blank" href="https://www.linkedin.com/"
+                                            class="fab fa-linkedin-in btn-linkedin me-2"></a></li>
+                                    <li><a target="_blank" href="https://twitter.com/"
+                                            class="fab fa-twitter btn-twitter"></a></li>
+                                </ul>
+                            </div>
+                            <p class="text-center">Not registered?
+                                <a class="btn-link text-primary" href="/signup">Register</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="pages-left h-100">
+                        <div class="login-content">
+                            <a href="index.html"><img src="Public/images/logo-full.png" class="mb-3" alt=""></a>
+
+                            <p>Your true value is determined by how much more you give in value than you take in
+                                payment. ...</p>
+                        </div>
+                        <div class="login-media text-center">
+                            <img src="Public/images/login-1.png" class="w-50" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="Public/vendor/global/global.min.js"></script>
+    <script src="Public/js/custom.min.js"></script>
+    <script src="Public/js/dlabnav-init.js"></script>
+</body>
+
+</html>

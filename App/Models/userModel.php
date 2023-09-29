@@ -104,5 +104,24 @@ class UserModel extends Model
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function updatePasswordByEmail($email, $newPassword)
+    {
+        // Generate a new password hash
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $query = "UPDATE users SET password = :password WHERE email = :email";
+
+        $params = [
+            ':password' => $hashedPassword,
+            ':email' => $email,
+        ];
+
+        // Execute the update query
+        $statement = $this->executeQuery($query, $params);
+
+        return $statement->rowCount(); // Return the number of affected rows
+    }
+
+
     
 }

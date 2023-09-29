@@ -1,42 +1,59 @@
-<!-- wallets.php -->
-
-<div class="nk-content">
+<!--**********************************
+            Content body start
+        ***********************************-->
+<div class="content-body">
+    <!-- row -->
     <div class="container-fluid">
-        <div class="nk-content-inner">
-            <div class="nk-content-body">
-                <div class="row g-gs">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Payment Methods</h4>
+                    </div>
+                    <div class="card-body">
+                        <select id="currency_select" name="currency_select" class="default-select form-control">
+                            <option value="">Select Currency/Network</option>
+                            <?php foreach ($wallets as $wallet): ?>
+                                <option value="<?= $wallet['currency'] ?>">
+                                    <?= $wallet['currency'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card text-white bg-info" id="wallet_details"  style="display: none;">
+                    <img class="card-img-top img-fluid" src="" id="barcode" alt="Card image cap">
+                    <div class="card-header">
+                        <h5 class="card-title text-white"><span id="currency"></span> Address</h5>
+                        <span>Network: </span><span id="network"></span>
+                    </div>
+                    <div class="card-body mb-0">
+                        <p class="card-text" id="address"></p> <button id="copyButton" class="btn btn-primary">Copy
+                            Address</button>
 
-
-                    <select name="currency_select" class="js-select" data-search="true" data-sort="false"
-                        id="currency_select">
-                        <option value="">Select Currency/Network</option>
-                        <?php foreach ($wallets as $wallet): ?>
-                            <option value="<?= $wallet['currency'] ?>">
-                                <?= $wallet['currency'] ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-
-                    <div class="col-md-6 col-12">
-                        <div class="card" id="wallet_details" style="display: none;"> <img id="barcode" src=""
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title"><span id="currency"></span> Address</h3>
-                                <span>Network: </span><span id="network"></span>
-                                <p class="card-text" id="address"></p> <button id="copyButton"
-                                    class="btn btn-primary">Copy
-                                    Address</button>
-                                <div id="alert" style="display: none;" class="alert alert-success" role="alert">
-                                </div>
-                            </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 text-white">
+                        <div id="alert" style="display: none;" class="alert alert-success solid alert-dismissible fade show">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                                <polyline points="9 11 12 14 22 4"></polyline>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                            <strong>Success!</strong> <span id="alert-text"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                            </button>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <!-- <div id="wallet_details">
+                       Wallet details will be displayed here based on user selection 
+                    </div> -->
 
-                    <div id="wallet_details">
-                        <!-- Wallet details will be displayed here based on user selection -->
-                    </div>
-
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                     <script>
                         // Add JavaScript to handle the currency select change event
                         $('#currency_select').change(function () {
@@ -90,7 +107,9 @@
                             function displayAlert(message) {
                                 // Display the alert
                                 var alertElement = $('#alert');
-                                alertElement.text(message).css('display', 'block');
+                                var alertText = $('#alert-text');
+                                alertElement.css('display', 'block');
+                                alertText.text(message);
 
                                 // Automatically hide the alert after 3 seconds
                                 setTimeout(function () {
@@ -103,9 +122,8 @@
                     </script>
 
 
-
-                </div>
-            </div>
         </div>
     </div>
-</div>
+    <!--**********************************
+            Content body end
+        ***********************************-->

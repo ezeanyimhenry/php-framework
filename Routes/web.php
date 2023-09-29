@@ -19,7 +19,8 @@ return [
     '/signup' => [SignupController::class, 'showSignupForm'],
     '/register' => [SignupController::class, 'registerUser'],
     '/forgot-password' => [PasswordResetController::class, 'showForgotPasswordForm'],
-    '/forgot-password/reset' => [PasswordResetController::class, 'sendPasswordResetEmail'],
+    '/forgot-password/reset' => [PasswordResetController::class, 'PasswordResetEmail'],
+    '/verify-token' => [PasswordResetController::class, 'verifyToken'],
     '/reset-password' => [PasswordResetController::class, 'showResetPasswordForm'],
     '/reset-password/reset' => [PasswordResetController::class, 'resetPassword'],
     '/cron' => [CronController::class, 'processDailyInvestmentEarnings'],
@@ -57,6 +58,11 @@ return [
         'middleware' => AuthMiddleware::class,
         'controller' => ActivityController::class,
         'method' => 'showAllUserActivity',
+    ],
+    '/profile' => [
+        'middleware' => AuthMiddleware::class,
+        'controller' => profileController::class,
+        'method' => 'displayProfile',
     ],
     '/logout' => [
         'middleware' => AuthMiddleware::class,

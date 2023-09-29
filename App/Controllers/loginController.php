@@ -55,6 +55,7 @@ class LoginController extends BaseController
                         Utility::redirect("/dashboard");
                     } else {
                         $loginError = "Login failed. Please check your credentials.";
+                        echo $loginError;
                     }
                 }
             }else{
