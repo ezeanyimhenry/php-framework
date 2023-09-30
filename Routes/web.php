@@ -8,6 +8,7 @@ use App\Controllers\ActivityController;
 use App\Controllers\CronController;
 use App\Controllers\PasswordResetController;
 use App\Controllers\WalletController;
+use App\Controllers\ProfileController;
 
 use Framework\Middleware\AuthMiddleware;
 
@@ -61,7 +62,7 @@ return [
     ],
     '/profile' => [
         'middleware' => AuthMiddleware::class,
-        'controller' => profileController::class,
+        'controller' => ProfileController::class,
         'method' => 'displayProfile',
     ],
     '/logout' => [

@@ -73,6 +73,27 @@
 @import url(../vendor/aos/css/aos.min.css);
 @import url(../vendor/perfect-scrollbar/css/perfect-scrollbar.css);
 @import url(../vendor/metismenu/css/metisMenu.min.css);
+
+/* Added CSS Starts */
+.profile-photo .image-container {
+  position: relative;
+}
+
+.profile-photo .camera-icon {
+  position: absolute;
+  bottom: -10px; /* Adjust the bottom spacing as needed */
+  left: 50%; /* Adjust the left spacing to center */
+  background-color: #5bcfc540; /* Add a background color for the icon */
+  border-radius: 50%; /* Make it round */
+  padding: 5px; /* Add padding for the icon */
+}
+
+.profile-photo .camera-icon i {
+  color: white; /* Icon color */
+}
+
+/* Added CSS Ends */
+
 :root {
   --primary: #5bcfc5;
   --secondary: #709fba;

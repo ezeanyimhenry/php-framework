@@ -48,6 +48,16 @@ if (isset($_SESSION['userDetails'])) {
 						</ul>
 
                     </li>
+					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="fa-solid fa-user fw-bold"></i>
+							<span class="nav-text">Account</span>
+						</a>
+                        <ul aria-expanded="false">
+							<li><a href="/profile">Profile</a></li>
+							<li><a href="/settings">Settings</a></li>	
+						</ul>
+
+                    </li>
                 </ul>
 				<div class="copyright">
 					<p><strong><?= WEBSITE_NAME ?></strong> © <?= date('Y') ?> All Rights Reserved</p>

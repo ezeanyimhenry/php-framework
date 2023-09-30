@@ -78,29 +78,29 @@ include_once("App/views/layout/user/_head.php")
 	<script src="Public/vendor/apexchart/apexchart.js"></script>
 	<script src="Public/vendor/nouislider/nouislider.min.js"></script>
 	<script src="Public/vendor/wnumb/wNumb.js"></script>
-    
+
 	<!-- Flot -->
-    <script src="vendor/flot/jquery.flot.js"></script>
-    <script src="vendor/flot/jquery.flot.pie.js"></script>
-    <script src="vendor/flot/jquery.flot.resize.js"></script>
-    <script src="vendor/flot-spline/jquery.flot.spline.min.js"></script>
-	
-    <!-- Datatable -->
-    <script src="Public/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="Public/js/plugins-init/datatables.init.js"></script>
-	
+	<script src="Public/vendor/flot/jquery.flot.js"></script>
+	<script src="Public/vendor/flot/jquery.flot.pie.js"></script>
+	<script src="Public/vendor/flot/jquery.flot.resize.js"></script>
+	<script src="Public/vendor/flot-spline/jquery.flot.spline.min.js"></script>
+
+	<!-- Datatable -->
+	<script src="Public/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="Public/js/plugins-init/datatables.init.js"></script>
+
 	<!-- Chart sparkline plugin files -->
-    <script src="vendor/jquery-sparkline/jquery.sparkline.min.js"></script>
-	<script src="js/plugins-init/sparkline-init.js"></script>
-	
+	<script src="Public/vendor/jquery-sparkline/jquery.sparkline.min.js"></script>
+	<script src="Public/js/plugins-init/sparkline-init.js"></script>
+
 	<!-- Chart piety plugin files -->
-       <script src="vendor/peity/jquery.peity.min.js"></script>
-	<script src="js/plugins-init/piety-init.js"></script>
-	
-    <!-- Init file -->
-    <script src="js/plugins-init/widgets-script-init.js"></script>
-	
-	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="Public/vendor/peity/jquery.peity.min.js"></script>
+	<script src="Public/js/plugins-init/piety-init.js"></script>
+
+	<!-- Init file -->
+	<script src="Public/js/plugins-init/widgets-script-init.js"></script>
+
+	<script src="Public/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 
 	<!-- Dashboard 1 -->
 	<script src="Public/js/dashboard/dashboard-1.js"></script>
@@ -109,6 +109,31 @@ include_once("App/views/layout/user/_head.php")
 	<script src="Public/js/dlabnav-init.js"></script>
 	<script src="Public/js/demo.js"></script>
 	<script src="Public/js/styleSwitcher.js"></script>
+
+	<script>
+		(function () {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
+
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+					form.addEventListener('submit', function (event) {
+						if (!form.checkValidity()) {
+							event.preventDefault()
+							event.stopPropagation()
+						}else{
+							form.submit();
+						}
+						
+						form.classList.add('was-validated')
+					}, false)
+				})
+		})()
+	</script>
+
 	<script>
 		function fetchPlanDetails(selectedPlanName, selectedPlanType) {
 			$.ajax({
