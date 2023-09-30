@@ -65,6 +65,11 @@ return [
         'controller' => ProfileController::class,
         'method' => 'displayProfile',
     ],
+    '/profile-update' => [
+        'middleware' => AuthMiddleware::class,
+        'controller' => ProfileController::class,
+        'method' => 'updateProfile',
+    ],
     '/logout' => [
         'middleware' => AuthMiddleware::class,
         'controller' => UserController::class,

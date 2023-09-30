@@ -67,6 +67,16 @@ use Framework\Classes\Utility;
 					</div>
 					<div class="card-body">
 						<div class="basic-form">
+							<?php
+
+							if (isset($_SESSION['error'])) {
+								Utility::displayAlert('error');
+							}
+
+							if (isset($_SESSION['success'])) {
+								Utility::displayAlert('success');
+							}
+							?>
 							<form class="form-valide-with-icon needs-validation" method="POST" action="/profile-update"
 								novalidate>
 								<div class="mb-3">
@@ -74,7 +84,7 @@ use Framework\Classes\Utility;
 											class="required">*</span></label>
 									<div class="input-group">
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
-										<input type="text" class="form-control border-left-end"
+										<input type="text" class="form-control border-left-end" name="firstname"
 											id="validationCustomFirstname" placeholder="Enter Firstname.."
 											value="<?= $userDetails['firstName'] ?>" required>
 										<div class="invalid-feedback">
@@ -83,11 +93,18 @@ use Framework\Classes\Utility;
 									</div>
 								</div>
 								<div class="mb-3">
+								<?php
+								if (isset($_SESSION['firstname-error'])) {
+									Utility::displayAlert('error','firstname-error');
+								}
+								?>
+							</div>
+								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomLastName">Lastname<span
 											class="required">*</span></label>
 									<div class="input-group">
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
-										<input type="text" class="form-control border-left-end"
+										<input type="text" class="form-control border-left-end" name="lastname"
 											id="validationCustomLastName" placeholder="Enter Lastname.."
 											value="<?= $userDetails['lastName'] ?>" required>
 										<div class="invalid-feedback">
@@ -96,24 +113,33 @@ use Framework\Classes\Utility;
 									</div>
 								</div>
 								<div class="mb-3">
+								<?php
+								if (isset($_SESSION['lastname-error'])) {
+									Utility::displayAlert('error','lastname-error');
+								}
+								?>
+							</div>
+								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomUsername">Username<span
 											class="required">*</span></label>
 									<div class="input-group">
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
-										<input type="text" class="form-control border-left-end"
+										<input type="text" class="form-control border-left-end" name="username"
 											id="validationCustomUsername" placeholder="Enter a username.."
-											value="<?= $userDetails['username'] ?>" required>
+											value="<?= $userDetails['username'] ?>" required readonly>
 										<div class="invalid-feedback">
 											Please Enter a username.
 										</div>
 									</div>
 								</div>
 								<div class="mb-3">
+							</div>
+								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomEmail">Email<span
 											class="required">*</span></label>
 									<div class="input-group">
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
-										<input type="email" class="form-control border-left-end"
+										<input type="email" class="form-control border-left-end" name="email"
 											id="validationCustomEmail" placeholder="Enter an email.."
 											value="<?= $userDetails['email'] ?>" required readonly>
 										<div class="invalid-feedback">
@@ -126,7 +152,7 @@ use Framework\Classes\Utility;
 											class="required">*</span></label>
 									<div class="input-group">
 										<span class="input-group-text"> <i class="fa fa-clock"></i> </span>
-										<select name="timezones" id="validationCustomTimezones"
+										<select name="timezone" id="validationCustomTimezones"
 											class="form-control border-left-end">
 											<option value="<?= $userDetails['timezone'] ?>" selected>
 												<?= $userDetails['timezone'] ?>

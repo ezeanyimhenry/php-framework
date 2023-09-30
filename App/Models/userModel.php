@@ -122,6 +122,24 @@ class UserModel extends Model
         return $statement->rowCount(); // Return the number of affected rows
     }
 
+    public function updateProfile ($user_id, $profileData)
+    {
+
+        $query = "UPDATE users SET firstName = :first_name, lastName = :last_name, timezone= :timezone WHERE id= :userID";
+
+        $params = [
+            ':userID' => $user_id,
+            ':first_name' => $profileData['firstname'],
+            ':last_name' => $profileData['lastname'],
+            ':timezone' => $profileData['timezone'],
+        ];
+error_log($profileData['firstname']);
+        $statement = $this->executeQuery($query, $params);
+
+        return $statement->rowCount(); 
+
+    }
+
 
     
 }

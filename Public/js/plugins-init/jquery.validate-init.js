@@ -11,6 +11,8 @@
 		if (!form.checkValidity()) {
 		  event.preventDefault()
 		  event.stopPropagation()
+		}else{
+			form.submit();
 		}
 
 		form.classList.add('was-validated')
