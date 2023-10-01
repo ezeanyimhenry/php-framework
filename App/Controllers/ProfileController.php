@@ -5,8 +5,16 @@ use App\Controllers\BaseController;
 use Framework\Classes\Utility;
 use Framework\Validators\ProfileValidator;
 
+/**
+ * ProfileController
+ */
 class ProfileController extends BaseController
-{
+{    
+    /**
+     * displayProfile
+     *
+     * @return void
+     */
     public function displayProfile()
     {
         $userModel = $this->createUserModel();
@@ -23,7 +31,12 @@ class ProfileController extends BaseController
         $contentPage = 'App/views/user/_profile.php';
         include_once 'App/views/user/_index.php';
     }
-
+    
+    /**
+     * updateProfile
+     *
+     * @return void
+     */
     public function updateProfile()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['profile'])) {
@@ -51,6 +64,15 @@ class ProfileController extends BaseController
                     Utility::redirect("/profile");
                 }
             }
+        }
+    }
+
+    public function changePassword()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['changePassword']))
+        {
+            $oldPassword = $_POST['old_password'];
+            $newPassword = $_POST['new_password'];
         }
     }
 

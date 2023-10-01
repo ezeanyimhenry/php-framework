@@ -70,6 +70,11 @@ return [
         'controller' => ProfileController::class,
         'method' => 'updateProfile',
     ],
+    '/change-password' => [
+        'middleware' => AuthMiddleware::class,
+        'controller' => ProfileController::class,
+        'method' => 'changePassword',
+    ],
     '/logout' => [
         'middleware' => AuthMiddleware::class,
         'controller' => UserController::class,

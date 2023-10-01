@@ -8,10 +8,106 @@ class UserModel extends Model
 {
     
     /**
+     * register
+     *
+     * @param  mixed $firstName
+     * @param  mixed $lastName
+     * @param  mixed $username
+     * @param  mixed $email
+     * @param  mixed $password
+     * @param  mixed $confirmPassword
+     * @return array|null
+     */
+    public function register($firstName, $lastName, $username, $email, $password, $confirmPassword)
+    {
+
+        if ($password !== $confirmPassword) {
+            return [
+                'success' => false,
+                'message' => "Password and Confirm Password do not match. Please try again."
+            ];
+        }
+        // Check if the email or username already exists
+        $sql = "SELECT COUNT(*) FROM users WHERE email = ? OR username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$email, $username]);
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            return [
+                'success' => false,
+                'message' => "Email or username already exists. Please choose a different one."
+            ];
+        }
+        // Proceed with user registration
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $userTimezone = Utility::getUserInfo()['user_timezone'];
+        $sql = "INSERT INTO users (firstName, lastName, username, email, password, timezone, create_time) VALUES (?, ?, ?, ?, ?, ?, NOW())";
+        $stmt = $this->db->prepare($sql);
+        if ($stmt->execute([$firstName, $lastName, $username, $email, $hashedPassword, $userTimezone])) {
+            return [
+                'success' => true,
+                'message' => "Registration successful."
+            ];
+        } else {
+            return [
+                'success' => false,
+                'message' => "Registration failed. Please try again later."
+            ];
+        }
+
+
+    }
+    
+    /**
+     * login
+     *
+     * @param  mixed $identifier
+     * @param  mixed $password
+     * @return bool
+     */
+    public function login($identifier, $password)
+    {
+        $sql = "SELECT id, username, email, password, role FROM users WHERE username = ? OR email = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$identifier, $identifier]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $user['role'];
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
+     * isLoggedIn
+     *
+     * @return bool
+     */
+    public function isLoggedIn()
+    {
+        return isset($_SESSION['user_id']);
+    }
+    
+    /**
+     * logout
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        session_destroy();
+        Utility::redirect("/signin");
+    }
+    
+    /**
      * getUserById
      *
      * @param  mixed $userId
-     * @return void
+     * @return array|null
      */
     public function getUserById($userId)
     {
@@ -31,7 +127,7 @@ class UserModel extends Model
      * getUserByEmail
      *
      * @param  mixed $email
-     * @return void
+     * @return array|null
      */
     public function getUserByEmail($email)
     {
@@ -40,7 +136,13 @@ class UserModel extends Model
         $stmt->execute([$email]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-
+    
+    /**
+     * isEmailAssociatedWithActiveAccount
+     *
+     * @param  mixed $email
+     * @return bool
+     */
     public function isEmailAssociatedWithActiveAccount($email)
     {
         // Define the SQL query to check if the email is associated with an active account
@@ -64,7 +166,13 @@ class UserModel extends Model
         // If the result is greater than 0, it means the email is associated with an active account
         return $result > 0;
     }
-    
+        
+    /**
+     * isUsernameAssociatedWithActiveAccount
+     *
+     * @param  mixed $username
+     * @return bool
+     */
     public function isUsernameAssociatedWithActiveAccount($username)
     {
         // Define the SQL query to check if the username is associated with an active account
@@ -94,7 +202,7 @@ class UserModel extends Model
      *
      * @param  mixed $user_id
      * @param  mixed $token
-     * @return void
+     * @return array|null
      */
     public function setRememberMeToken($user_id, $token)
     {
@@ -125,7 +233,7 @@ class UserModel extends Model
      * findUserByToken
      *
      * @param  mixed $token
-     * @return void
+     * @return array|null
      */
     public function findUserByToken($token)
     {
@@ -140,7 +248,7 @@ class UserModel extends Model
      *
      * @param  mixed $email
      * @param  mixed $newPassword
-     * @return void
+     * @return array|null
      */
     public function updatePasswordByEmail($email, $newPassword)
     {
@@ -165,7 +273,7 @@ class UserModel extends Model
      *
      * @param  mixed $user_id
      * @param  mixed $profileData
-     * @return void
+     * @return array|null
      */
     public function updateProfile ($user_id, $profileData)
     {

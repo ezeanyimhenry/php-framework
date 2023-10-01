@@ -50,7 +50,8 @@ include_once("App/views/layout/user/_head.php")
 		?>
 
 		<?php
-		include_once("App/views/user/modals/_plan_type_modal.php")
+		include_once("App/views/user/components/modals/_plan_type_modal.php");
+		include_once("App/views/user/components/modals/_change_password_modal.php");
 			?>
 
 

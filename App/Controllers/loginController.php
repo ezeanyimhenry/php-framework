@@ -22,7 +22,6 @@ class LoginController extends BaseController
     public function handleLogin()
     {
         $userModel = $this->createUserModel();
-        $userController = $this->createUserController();
         // Check if there is a valid "Remember Me" token and password hash
         $rememberMeData = Utility::checkRememberMeCookie($this->db);
 
@@ -41,7 +40,7 @@ class LoginController extends BaseController
                         echo $error . "<br>";
                     }
                 } else {
-                    if ($userController->login($identifier, $password)) {
+                    if ($userModel->login($identifier, $password)) {
                         $user_id = $_SESSION['user_id'];
 
                         if (isset($_POST['remember_me']) && $_POST['remember_me'] === '1') {

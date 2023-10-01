@@ -129,12 +129,17 @@ class Utility
 
         // Get user's timezone using ip-api.com (adjust the URL to your needs)
         $ipApiUrl = 'http://ip-api.com/json/';
-        $ipApiData = file_get_contents($ipApiUrl);
+        try {
+            $ipApiData = file_get_contents($ipApiUrl);
 
-        if ($ipApiData) {
-            $ipApiResult = json_decode($ipApiData, true);
-            $userTimezone = $ipApiResult['timezone'];
-        } else {
+            if ($ipApiData) {
+                $ipApiResult = json_decode($ipApiData, true);
+                $userTimezone = $ipApiResult['timezone'];
+            } else {
+                $userTimezone = 'Unknown';
+            }
+        } catch (Exception $e) {
+            // Handle the exception, e.g., log the error or provide a default timezone
             $userTimezone = 'Unknown';
         }
 
@@ -145,6 +150,7 @@ class Utility
 
         return $userInfo;
     }
+
 
     static function getAllTimezones()
     {
@@ -172,7 +178,7 @@ class Utility
     static function displayAlert($type, $key = null)
     {
         if ($type == 'success') {
-            if ($key == null){
+            if ($key == null) {
                 $key = "success";
             }
             echo '<div class="alert alert-success solid alert-dismissible fade show">
@@ -183,7 +189,7 @@ class Utility
         </div>';
             unset($_SESSION[$key]);
         } elseif ($type == 'error') {
-            if ($key == null){
+            if ($key == null) {
                 $key = "error";
             }
             echo '<div class="alert alert-danger solid alert-dismissible fade show">

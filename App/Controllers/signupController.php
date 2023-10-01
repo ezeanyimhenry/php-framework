@@ -19,7 +19,7 @@ class SignupController extends BaseController
 
     public function registerUser()
     {
-        $userController = $this->createUserController();
+        $userModel = $this->createUserModel();
         if (isset($_POST['register'])) {
 
             $firstName = $_POST['firstname'];
@@ -40,7 +40,7 @@ class SignupController extends BaseController
                 Utility::redirect('/signup');
             } else {
                 // No validation errors, proceed with registration
-                $result = $userController->register($firstName, $lastName, $username, $email, $password, $confirmPassword);
+                $result = $userModel->register($firstName, $lastName, $username, $email, $password, $confirmPassword);
 
                 if ($result['success']) {
                     // Registration successful

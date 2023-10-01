@@ -50,9 +50,9 @@ use Framework\Classes\Utility;
 							</strong></li>
 					</ul>
 					<div class="card-footer border-0 mt-0">
-						<a href="/change-password"><button class="btn btn-warning btn-block">
+						<button class="btn btn-warning btn-block" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
 							<i class="fa fa-key"></i> Change Password
-						</button></a>
+						</button>
 						<br />
 						<a href="/wallet-connect"><button class="btn btn-primary btn-lg btn-block">
 							<i class="fa fa-wallet"></i> Connect Wallet
@@ -172,20 +172,6 @@ use Framework\Classes\Utility;
 										</div>
 									</div>
 								</div>
-								<!-- <div class="mb-3">
-											<label class="text-label form-label" for="dlab-password">Password <span class="required">*</span></label>
-											<div class="input-group transparent-append">
-												<span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-												<input type="password" class="form-control" id="dlab-password" placeholder="Choose a safe one.." required>
-												<span class="input-group-text show-pass border-left-end"> 
-													<i class="fa fa-eye-slash"></i>
-													<i class="fa fa-eye"></i>
-												</span>
-												<div class="invalid-feedback">
-													Please Enter a username.
-												</div>
-											</div>
-										</div> -->
 								<button type="submit" name="profile" class="btn me-2 btn-primary">Submit</button>
 								<button type="submit" class="btn btn-danger light">Cancel</button>
 							</form>

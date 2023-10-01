@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ActivityModel;
 use App\Models\InvestmentModel;
-use App\Models\UserModel;
 
 class CronController extends BaseController
 {
@@ -14,7 +13,7 @@ class CronController extends BaseController
     {
         $investmentModel = new InvestmentModel($this->db);
         $activityModel = new ActivityModel($this->db);
-        $userModel = new UserModel($this->db);
+        $userModel = $this->createUserModel();;
 
         $activeInvestments = $investmentModel->getActiveInvestments();
 

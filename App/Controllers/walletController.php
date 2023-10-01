@@ -4,7 +4,6 @@
 namespace App\Controllers;
 
 use App\Models\WalletModel;
-use Framework\Classes\View;
 
 class WalletController extends BaseController
 {
