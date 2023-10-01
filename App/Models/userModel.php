@@ -6,7 +6,13 @@ use App\Models\Model;
 
 class UserModel extends Model
 {
-
+    
+    /**
+     * getUserById
+     *
+     * @param  mixed $userId
+     * @return void
+     */
     public function getUserById($userId)
     {
         $query = "SELECT * FROM users WHERE id = :userId";
@@ -20,7 +26,13 @@ class UserModel extends Model
         
         return $statement->fetch(\PDO::FETCH_ASSOC);
     }
-
+    
+    /**
+     * getUserByEmail
+     *
+     * @param  mixed $email
+     * @return void
+     */
     public function getUserByEmail($email)
     {
         $sql = "SELECT * FROM users WHERE email = ?";
@@ -76,7 +88,14 @@ class UserModel extends Model
         // If the result is greater than 0, it means the username is associated with an active account
         return $result > 0;
     }
-
+    
+    /**
+     * setRememberMeToken
+     *
+     * @param  mixed $user_id
+     * @param  mixed $token
+     * @return void
+     */
     public function setRememberMeToken($user_id, $token)
     {
         // Store the Remember Me token in the database for the user
@@ -84,7 +103,13 @@ class UserModel extends Model
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$token, $user_id]);
     }
-
+    
+    /**
+     * clearRememberMeToken
+     *
+     * @param  mixed $user_id
+     * @return void
+     */
     public function clearRememberMeToken($user_id)
     {
         // Set the cookie's expiration date in the past to expire it
@@ -95,7 +120,13 @@ class UserModel extends Model
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$user_id]);
     }
-
+    
+    /**
+     * findUserByToken
+     *
+     * @param  mixed $token
+     * @return void
+     */
     public function findUserByToken($token)
     {
         $sql = "SELECT * FROM users WHERE remember_me_token = ?";
@@ -103,7 +134,14 @@ class UserModel extends Model
         $stmt->execute([$token]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-
+    
+    /**
+     * updatePasswordByEmail
+     *
+     * @param  mixed $email
+     * @param  mixed $newPassword
+     * @return void
+     */
     public function updatePasswordByEmail($email, $newPassword)
     {
         // Generate a new password hash
@@ -121,7 +159,14 @@ class UserModel extends Model
 
         return $statement->rowCount(); // Return the number of affected rows
     }
-
+    
+    /**
+     * updateProfile
+     *
+     * @param  mixed $user_id
+     * @param  mixed $profileData
+     * @return void
+     */
     public function updateProfile ($user_id, $profileData)
     {
 
@@ -133,7 +178,6 @@ class UserModel extends Model
             ':last_name' => $profileData['lastname'],
             ':timezone' => $profileData['timezone'],
         ];
-error_log($profileData['firstname']);
         $statement = $this->executeQuery($query, $params);
 
         return $statement->rowCount(); 

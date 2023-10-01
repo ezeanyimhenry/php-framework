@@ -50,13 +50,13 @@ use Framework\Classes\Utility;
 							</strong></li>
 					</ul>
 					<div class="card-footer border-0 mt-0">
-						<button class="btn btn-warning btn-block">
+						<a href="/change-password"><button class="btn btn-warning btn-block">
 							<i class="fa fa-key"></i> Change Password
-						</button>
+						</button></a>
 						<br />
-						<button class="btn btn-primary btn-lg btn-block">
+						<a href="/wallet-connect"><button class="btn btn-primary btn-lg btn-block">
 							<i class="fa fa-wallet"></i> Connect Wallet
-						</button>
+						</button></a>
 					</div>
 				</div>
 			</div>
