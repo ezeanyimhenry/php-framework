@@ -28,7 +28,11 @@ use Framework\Helpers\Utility;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($activities as $activity): ?>
+                                    <?php 
+                                    $data = false; 
+                                    foreach ($activities as $activity): 
+                                    $data = true;
+                                    ?>
                                         <tr>
                                             <td>
                                                 <?= $activity['create_time'] ?>
@@ -49,7 +53,18 @@ use Framework\Helpers\Utility;
                                                 <?= $activity['status'] ?>
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php 
+                                    endforeach; 
+
+                                    if(!$data){
+                                        echo '<tr>
+                                        <td colspan="6" style="text-align:center">
+                                            No Data Available
+                                        </td>
+                                        </tr>';
+                                    }
+                                    ?>
+                                    
                                 </tbody>
                                 <tfoot>
                                     <tr>

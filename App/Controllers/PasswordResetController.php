@@ -108,8 +108,7 @@ class PasswordResetController extends BaseController
                     //invalid token
                 } else {
                     $validationErrors = BaseValidator::validatePassword($newPassword);
-                    error_log($validationErrors);
-                    if ($validationErrors != true) {
+                    if ($validationErrors !== true) {
                             $_SESSION['error'] = $validationErrors;
                             Utility::redirect("/reset-password");
                     } else {
@@ -122,6 +121,7 @@ class PasswordResetController extends BaseController
                     } else {
                         // Password update failed
                         $_SESSION['error'] = 'Password update failed';
+                        Utility::redirect("/reset-password");
                     }
                 }
                 }

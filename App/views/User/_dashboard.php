@@ -34,7 +34,7 @@ use Framework\Helpers\Utility;
 									</span>
 									<div class="media-body">
 										<p class="mb-1">Balance</p>
-										<h4 class="mb-0"><?= $accountBalance ?></h4>
+										<h4 class="mb-0"><?= number_format($accountBalance) ?></h4>
 										<!-- <span class="badge badge-primary">+3.5%</span> -->
 									</div>
 								</div>

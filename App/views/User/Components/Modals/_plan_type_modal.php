@@ -12,7 +12,7 @@
                         <label class="form-label">Select Investment Type</label>
                         <div class="form-control-wrap">
                             <select id="planTypeSelect" name="type" class="default-select form-control wide mb-3">
-                                <?php foreach ($planTypes as $type): ?>
+                                <?php $planTypes = $_SESSION['planTypes']; foreach ($planTypes as $type): ?>
                                     <option value="<?= $type['name'] ?>">
                                         <?= $type['name'] ?>
                                     </option>

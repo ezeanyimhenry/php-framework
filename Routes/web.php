@@ -65,7 +65,7 @@ return [
         'controller' => ProfileController::class,
         'method' => 'displayProfile',
     ],
-    '/profile-update' => [
+    '/profile/{id}' => [
         'middleware' => AuthMiddleware::class,
         'controller' => ProfileController::class,
         'method' => 'updateProfile',

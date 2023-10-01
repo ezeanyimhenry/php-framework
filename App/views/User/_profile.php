@@ -78,7 +78,7 @@ use Framework\Helpers\Utility;
 					</div>
 					<div class="card-body">
 						<div class="basic-form">
-							<form class="form-valide-with-icon needs-validation" method="POST" action="/profile-update"
+							<form class="form-valide-with-icon needs-validation" method="POST" action="/profile/<?= $user_id ?>"
 								novalidate>
 								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomFirstname">Firstname<span

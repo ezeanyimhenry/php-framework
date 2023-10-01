@@ -38,11 +38,11 @@ class ProfileController extends BaseController
      *
      * @return void
      */
-    public function updateProfile()
+    public function updateProfile($user_id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['profile'])) {
             $userModel = $this->createUserModel();
-            $user_id = $_SESSION['user_id'];
+            // $user_id = $_SESSION['user_id'];
 
             $validationErrors = ProfileValidator::validateProfileData($_POST);
 
@@ -67,7 +67,12 @@ class ProfileController extends BaseController
             }
         }
     }
-
+    
+    /**
+     * changePassword
+     *
+     * @return void
+     */
     public function changePassword()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['changePassword'])) {
@@ -78,27 +83,23 @@ class ProfileController extends BaseController
             $userModel = $this->createUserModel();
             if (!$userModel->validateOldPassword($user_id, $oldPassword)) {
                 $_SESSION['error'] = 'Incorrect Password';
-                Utility::redirect("/profile");
             } else {
                 $validationErrors = BaseValidator::validatePassword($newPassword);
                 error_log($validationErrors);
-                if ($validationErrors != true) {
+                if ($validationErrors !== true) {
                     $_SESSION['error'] = $validationErrors;
-                    Utility::redirect("/profile");
                 } else {
-                    // $result = $userModel->updatePasswordByID($user_id, $newPassword);
-                    $result = 0;
+                    $result = $userModel->updatePasswordByID($user_id, $newPassword);
                     if ($result > 0) {
                         // Password updated successfully
                         $_SESSION['success'] = "Password updated successfully";
-                        Utility::redirect("/profile");
                     } else {
                         // Password update failed
                         $_SESSION['error'] = 'Password update failed';
-                        Utility::redirect("/profile");
                     }
                 }
             }
+            Utility::redirect("/profile");
         }
     }
 

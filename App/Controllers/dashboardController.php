@@ -29,7 +29,11 @@ class DashboardController extends BaseController
         // Use the model to get plan types
         $planTypeModel = new PlanTypeModel($this->db); // Pass the dbConnection
 
-        return $planTypeModel->getPlanTypes();
+        $planTypes = $planTypeModel->getPlanTypes();
+
+        $_SESSION['planTypes'] = $planTypes;
+
+        return $planTypes;
 
     }
 }
