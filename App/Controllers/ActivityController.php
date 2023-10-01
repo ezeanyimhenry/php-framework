@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\ActivityModel;
-use Framework\Classes\View;
 
 class ActivityController extends BaseController
 {

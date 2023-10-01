@@ -1,5 +1,5 @@
 <?php 
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 ?>
 <!--**********************************
 			Content body start

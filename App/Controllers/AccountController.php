@@ -1,9 +1,7 @@
 <?php
-namespace Framework\Classes;
+namespace Framework\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\AccountModel;
-use Framework\Classes\Utility;
 class AccountController extends BaseController
 {
     

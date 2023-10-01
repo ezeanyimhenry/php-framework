@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Classes;
+namespace Framework\Helpers;
 
 use App\Models\UserModel;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -155,24 +155,28 @@ class Utility
     static function getAllTimezones()
     {
         $apiEndpoint = 'http://worldtimeapi.org/api/timezone';
+        try {
+            // Make the API request using file_get_contents
+            $response = file_get_contents($apiEndpoint);
 
-        // Make the API request using file_get_contents
-        $response = file_get_contents($apiEndpoint);
+            // Check if the response is successful
+            if ($response) {
+                // Decode the JSON response
+                $timezones = json_decode($response);
 
-        // Check if the response is successful
-        if ($response) {
-            // Decode the JSON response
-            $timezones = json_decode($response);
-
-            // Return the timezones as an array
-            if (is_array($timezones)) {
-                return $timezones;
+                // Return the timezones as an array
+                if (is_array($timezones)) {
+                    return $timezones;
+                } else {
+                    return [];
+                }
             } else {
                 return [];
             }
-        } else {
+        } catch (Exception $e) {
             return [];
         }
+
     }
 
     static function displayAlert($type, $key = null)

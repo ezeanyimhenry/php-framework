@@ -3,8 +3,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\PasswordResetModel;
-use Framework\Classes\Utility;
-use Framework\Classes\View;
+use Framework\Helpers\Utility;
 use Framework\Validators\BaseValidator;
 
 class PasswordResetController extends BaseController

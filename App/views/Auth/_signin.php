@@ -45,7 +45,7 @@
 							</p>
 						</div>
 						<?php
-						use Framework\Classes\Utility;
+						use Framework\Helpers\Utility;
 
 						if (isset($_SESSION['error'])) {
 							Utility::displayAlert('error');

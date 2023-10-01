@@ -1,7 +1,7 @@
 <?php
 namespace Framework\Middleware;
 
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 
 class AuthMiddleware
 {

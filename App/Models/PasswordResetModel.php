@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 use PDO;
 
 class PasswordResetModel extends Model

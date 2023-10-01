@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 use Framework\Validators\RegistrationValidator;
 
 class SignupController extends BaseController

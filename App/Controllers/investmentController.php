@@ -5,9 +5,7 @@ use App\Controllers\BaseController;
 use App\Models\ActivityModel;
 use App\Models\InvestmentModel;
 use App\Models\PlanModel;
-use App\Models\PlanTypeModel;
-use App\Models\UserModel;
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 
 class InvestmentController extends BaseController
 {

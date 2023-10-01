@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 
 use App\Models\Model;
 
@@ -80,27 +80,6 @@ class UserModel extends Model
         }
 
         return false;
-    }
-    
-    /**
-     * isLoggedIn
-     *
-     * @return bool
-     */
-    public function isLoggedIn()
-    {
-        return isset($_SESSION['user_id']);
-    }
-    
-    /**
-     * logout
-     *
-     * @return void
-     */
-    public function logout()
-    {
-        session_destroy();
-        Utility::redirect("/signin");
     }
     
     /**
@@ -260,6 +239,48 @@ class UserModel extends Model
         $params = [
             ':password' => $hashedPassword,
             ':email' => $email,
+        ];
+
+        // Execute the update query
+        $statement = $this->executeQuery($query, $params);
+
+        return $statement->rowCount(); // Return the number of affected rows
+    }
+    
+    /**
+     * validateOldPassword
+     *
+     * @param  mixed $user_id
+     * @param  mixed $oldPassword
+     * @return bool
+     */
+    public function validateOldPassword($user_id, $oldPassword)
+    {
+        $user = $this->getUserById($user_id);
+        if (password_verify($oldPassword, $user['password']))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * updatePasswordByID
+     *
+     * @param  mixed $user_id
+     * @param  mixed $newPassword
+     * @return array|null
+     */
+    public function updatePasswordByID($user_id, $newPassword)
+    {
+        // Generate a new password hash
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $query = "UPDATE users SET password = :password WHERE id = :userID";
+
+        $params = [
+            ':password' => $hashedPassword,
+            ':userID' => $user_id,
         ];
 
         // Execute the update query

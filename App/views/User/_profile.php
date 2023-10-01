@@ -1,6 +1,6 @@
 <?php
 
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 
 ?>
 <!--**********************************
@@ -10,6 +10,16 @@ use Framework\Classes\Utility;
 	<div class="container-fluid">
 		<!-- row -->
 		<div class="row">
+			<?php
+
+			if (isset($_SESSION['error'])) {
+				Utility::displayAlert('error');
+			}
+
+			if (isset($_SESSION['success'])) {
+				Utility::displayAlert('success');
+			}
+			?>
 			<div class="col-xl-4 col-lg-12 col-sm-12">
 				<div class="card overflow-hidden">
 					<div class="text-center p-3 overlay-box "
@@ -50,13 +60,14 @@ use Framework\Classes\Utility;
 							</strong></li>
 					</ul>
 					<div class="card-footer border-0 mt-0">
-						<button class="btn btn-warning btn-block" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+						<button class="btn btn-warning btn-block" data-bs-toggle="modal"
+							data-bs-target="#changePasswordModal">
 							<i class="fa fa-key"></i> Change Password
 						</button>
 						<br />
 						<a href="/wallet-connect"><button class="btn btn-primary btn-lg btn-block">
-							<i class="fa fa-wallet"></i> Connect Wallet
-						</button></a>
+								<i class="fa fa-wallet"></i> Connect Wallet
+							</button></a>
 					</div>
 				</div>
 			</div>
@@ -67,16 +78,6 @@ use Framework\Classes\Utility;
 					</div>
 					<div class="card-body">
 						<div class="basic-form">
-							<?php
-
-							if (isset($_SESSION['error'])) {
-								Utility::displayAlert('error');
-							}
-
-							if (isset($_SESSION['success'])) {
-								Utility::displayAlert('success');
-							}
-							?>
 							<form class="form-valide-with-icon needs-validation" method="POST" action="/profile-update"
 								novalidate>
 								<div class="mb-3">
@@ -93,12 +94,12 @@ use Framework\Classes\Utility;
 									</div>
 								</div>
 								<div class="mb-3">
-								<?php
-								if (isset($_SESSION['firstname-error'])) {
-									Utility::displayAlert('error','firstname-error');
-								}
-								?>
-							</div>
+									<?php
+									if (isset($_SESSION['firstname-error'])) {
+										Utility::displayAlert('error', 'firstname-error');
+									}
+									?>
+								</div>
 								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomLastName">Lastname<span
 											class="required">*</span></label>
@@ -113,12 +114,12 @@ use Framework\Classes\Utility;
 									</div>
 								</div>
 								<div class="mb-3">
-								<?php
-								if (isset($_SESSION['lastname-error'])) {
-									Utility::displayAlert('error','lastname-error');
-								}
-								?>
-							</div>
+									<?php
+									if (isset($_SESSION['lastname-error'])) {
+										Utility::displayAlert('error', 'lastname-error');
+									}
+									?>
+								</div>
 								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomUsername">Username<span
 											class="required">*</span></label>
@@ -133,7 +134,7 @@ use Framework\Classes\Utility;
 									</div>
 								</div>
 								<div class="mb-3">
-							</div>
+								</div>
 								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomEmail">Email<span
 											class="required">*</span></label>

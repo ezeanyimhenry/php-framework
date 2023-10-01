@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use Framework\Classes\Utility;
+use Framework\Helpers\Utility;
 
 class UserController extends BaseController
 {
@@ -12,5 +12,26 @@ class UserController extends BaseController
     }
 
   
+    
+    /**
+     * isLoggedIn
+     *
+     * @return bool
+     */
+    public function isLoggedIn()
+    {
+        return isset($_SESSION['user_id']);
+    }
+    
+    /**
+     * logout
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        session_destroy();
+        Utility::redirect("/signin");
+    }
     
 }
