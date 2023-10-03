@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use Framework\Helpers\GlobalHelpers;
 use Framework\Helpers\Utility;
 use Framework\Validators\LoginValidator;
 
@@ -42,6 +43,8 @@ class LoginController extends BaseController
                 } else {
                     if ($userModel->login($identifier, $password)) {
                         $user_id = $_SESSION['user_id'];
+                        GlobalHelpers::getUserDetails($this->db);
+                        GlobalHelpers::getPlanTypes($this->db);
 
                         if (isset($_POST['remember_me']) && $_POST['remember_me'] === '1') {
                             $token = Utility::generateRandomToken();
@@ -57,7 +60,7 @@ class LoginController extends BaseController
                         echo $loginError;
                     }
                 }
-            }else{
+            } else {
                 Utility::redirect("/signin");
             }
         }

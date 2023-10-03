@@ -28,44 +28,36 @@ use Framework\Helpers\Utility;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                                    $data = false; 
-                                    foreach ($activities as $activity): 
-                                    $data = true;
-                                    ?>
+                                    <?php if (count($activities) > 0): ?>
+                                        <?php foreach ($activities as $activity): ?>
+                                            <tr>
+                                                <td>
+                                                    <?= $activity['create_time'] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $activity['activity_type'] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $activity['amount'] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $activity['fiat'] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $activity['description'] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $activity['status'] ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
                                         <tr>
-                                            <td>
-                                                <?= $activity['create_time'] ?>
-                                            </td>
-                                            <td>
-                                                <?= $activity['activity_type'] ?>
-                                            </td>
-                                            <td>
-                                                <?= $activity['amount'] ?>
-                                            </td>
-                                            <td>
-                                                <?= $activity['fiat'] ?>
-                                            </td>
-                                            <td>
-                                                <?= $activity['description'] ?>
-                                            </td>
-                                            <td>
-                                                <?= $activity['status'] ?>
-                                            </td>
+                                            <td colspan="6" style="text-align:center;">No Data Available</td>
                                         </tr>
-                                    <?php 
-                                    endforeach; 
-
-                                    if(!$data){
-                                        echo '<tr>
-                                        <td colspan="6" style="text-align:center">
-                                            No Data Available
-                                        </td>
-                                        </tr>';
-                                    }
-                                    ?>
-                                    
+                                    <?php endif; ?>
                                 </tbody>
+
                                 <tfoot>
                                     <tr>
                                         <th>Date</th>

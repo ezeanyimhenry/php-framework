@@ -21,12 +21,6 @@ class ProfileController extends BaseController
         $userModel = $this->createUserModel();
         $userController = $this->createUserController();
 
-        $user_id = $_SESSION['user_id'];
-
-
-        $userDetails = $userModel->getUserById($user_id);
-        $_SESSION['userDetails'] = $userDetails;
-
         $timezones = Utility::getAllTimezones();
 
         $contentPage = 'App/views/user/_profile.php';

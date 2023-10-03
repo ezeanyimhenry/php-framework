@@ -52,7 +52,7 @@ include_once("App/views/layout/user/_head.php")
 		<?php
 		include_once("App/views/user/components/modals/_plan_type_modal.php");
 		include_once("App/views/user/components/modals/_change_password_modal.php");
-			?>
+		?>
 
 
 
@@ -113,52 +113,9 @@ include_once("App/views/layout/user/_head.php")
 
 	<script src="Public/js/plugins-init/jquery.validate-init.js"></script>
 
-	<script>
-		function fetchPlanDetails(selectedPlanName, selectedPlanType) {
-			$.ajax({
-				url: '/investment/fetchPlanDetails/', // Use the appropriate URL pattern
-				method: 'POST',
-				contentType: 'application/json', // Set the content type to JSON
-				data: JSON.stringify({        // Convert the data to JSON format
-					planName: selectedPlanName,
-					planType: selectedPlanType
-				}),
-				success: function (response) {
-					// Define a function to update calculations
-					function updateCalculations() {
-						var userAmount = parseFloat($('#amount').val()); // Parse the input as a float
+	<script src="Public/js/scripts.js"></script>
+	<script src="Public/js/wallets.js"></script>
 
-						if (response.length > 0) {
-							var planDetails = response[0]; // Access the first object in the array
-
-							var profit = (planDetails.roi * planDetails.duration / 100) * userAmount;
-							var total = profit + userAmount;
-
-							$('#minimum_amount').val(planDetails.minimum_amount);
-							$('#maximum_amount').val(planDetails.maximum_amount);
-							$('#roi').val(planDetails.roi);
-							$('#duration').val(planDetails.duration);
-							$('#profit').val(profit.toFixed(2));
-							$('#total').val(total.toFixed(2));
-						} else {
-							console.error('No plan details found in the response.');
-						}
-					}
-
-					// Attach an input event listener to the "amount" field
-					$('#amount').on('input', updateCalculations);
-
-					// Initially, trigger the calculations when the page loads
-					updateCalculations();
-
-				},
-				error: function (xhr, status, error) {
-					console.error('Error fetching plan details: ' + error);
-				},
-			});
-		}
-
-	</script>
 </body>
 
 
