@@ -4,8 +4,10 @@ session_start();
 require_once('autoload.php');
 require_once('config.php');
 require_once('Framework/Database/Database.php');
+require_once('Framework/Middleware/ExceptionHandlerMiddleware.php'); // Include the ExceptionHandlerMiddleware
 
 use Framework\Database\Database;
+use Framework\Middleware\ExceptionHandlerMiddleware; // Import the ExceptionHandlerMiddleware class
 
 $database = new Database($dsn, $username, $password);
 $dbConnection = $database->getConnection();
@@ -16,8 +18,9 @@ $request = $_SERVER['REQUEST_URI'];
 
 $matched = false; // Initialize the flag as false
 
-foreach ($routes as $pattern => $route) {
-    // Replace '{id}' with '(\d+)' in the pattern
+try {
+    foreach ($routes as $pattern => $route) {
+        // Replace '{id}' with '(\d+)' in the pattern
     $pattern = str_replace('{id}', '(\d+)', $pattern);
 
     if (preg_match("#^$pattern$#", $request, $matches)) {
@@ -59,13 +62,16 @@ foreach ($routes as $pattern => $route) {
             $matched = true; // Set the flag to true when a route is matched
         }
     }
+
+    }
+
+    // Check if no matching route was found
+    if (!$matched) {
+        http_response_code(404);
+        require __DIR__ . '/App/views/_404.php';
+    }
+} catch (Exception $e) {
+    // Handle uncaught exceptions using the ExceptionHandlerMiddleware
+    $exceptionHandler = new ExceptionHandlerMiddleware();
+    $exceptionHandler->handleException($e); // Just handle the exception, no need to assign the result
 }
-
-// Check if no matching route was found
-if (!$matched) {
-    http_response_code(404);
-    require __DIR__ . '/App/views/_404.php';
-}
-
-
-?>
