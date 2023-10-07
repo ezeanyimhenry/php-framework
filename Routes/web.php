@@ -9,6 +9,7 @@ use App\Controllers\CronController;
 use App\Controllers\PasswordResetController;
 use App\Controllers\WalletController;
 use App\Controllers\ProfileController;
+use App\Controllers\TestController;
 
 use Framework\Middleware\AuthMiddleware;
 
@@ -80,4 +81,5 @@ return [
         'controller' => UserController::class,
         'method' => 'logout',
     ],
+    '/test' => [TestController::class, 'renderTemplate',]
 ];

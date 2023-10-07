@@ -3,19 +3,22 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\AccountModel;
+use Framework\Template\TemplateEngine;
 
 class DashboardController extends BaseController
 {
    public function showDashboard()
     {
-        $userModel = $this->createUserModel();
+        $template = new TemplateEngine();
         $accountModel = new AccountModel($this->db);
-        // Get the user ID from the session
-        $user_id = $_SESSION['user_id'];
         
-
         $accountBalance = $accountModel->getBalance();
         $contentPage = 'App/views/user/_dashboard.php';
-        include_once 'App/views/user/_index.php';
+        $data = [
+            'accountBalance' => number_format($accountBalance),
+            'userDetails' => $_SESSION['userDetails'],
+        ];
+
+        echo $template->render('App/views/user/_index.php', $contentPage ,$data);
     }
 }
