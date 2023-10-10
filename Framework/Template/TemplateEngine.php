@@ -1,40 +1,73 @@
 <?php
 namespace Framework\Template;
 
-class TemplateEngine {
+class TemplateEngine
+{
     private $data = [];
 
-    public function __construct($data = []) {
-        $this->data = $data;
+    public function assign($key, $value)
+    {
+        $this->data[$key] = $value;
     }
 
-    // Function to replace placeholders with values in the template
-    private function replacePlaceholders($template, $data) {
-        // Use a regular expression to find placeholders like {{ variable }}
-        $pattern = '/{{\s*(.*?)\s*}}/';
-        $callback = function ($matches) use ($data) {
-            $placeholder = $matches[1];
-            return $data[$placeholder] ?? '';
-        };
-        return preg_replace_callback($pattern, $callback, $template);
-    }
+    public function render($template_name, $data)
+    {
+        foreach ($data as $key => $value) {
+            $this->assign($key, $value);
+        }
+        $path = $template_name . '.php';
+        if (file_exists($path)) {
+            $content = file_get_contents($path);
 
-    public function render($templateFile, $contentPage = '', array $data = []) {
-        if (file_exists($templateFile)) {
-            ob_start();
-            extract($data);
-            
-            if (!empty($contentPage) && file_exists($contentPage)) {
-                // Load and replace placeholders in the content page
-                $content = file_get_contents($contentPage);
-                $content = $this->replacePlaceholders($content, $data);
-                echo $content;
-            }
-            
-            include $templateFile;
-            return ob_get_clean();
+            $content = $this->replacePlaceholders($content, $this->data);
+            $content = $this->replaceIfStatement($content);
+
+            eval('?>' . $content . '<?php');
         } else {
-            throw new \Exception("Template file not found: $templateFile");
+            throw new \Exception("Template file not found: $path");
         }
     }
+
+    private function replacePlaceholders($template, $data)
+    {
+        foreach ($data as $key => $value) {
+            if ($value === null) {
+                continue; // Skip null values
+            }
+
+            if (is_array($value)) {
+                // Recursively replace placeholders within nested arrays
+                $nestedPlaceholders = [];
+                foreach ($value as $nestedKey => $nestedValue) {
+                    $nestedPlaceholders[$key . '.' . $nestedKey] = $nestedValue;
+                }
+                $template = $this->replacePlaceholders($template, $nestedPlaceholders);
+            } else {
+                $template = preg_replace('/\{\{\s' . $key . '\s\}\}/', $value, $template);
+            }
+        }
+        return $template;
+    }
+
+    private function replaceIfStatement($template)
+{
+
+    $template = preg_replace('/\@if\((.*?)\)/', '<?php if ($1) : ?>', $template);
+    $template = preg_replace('/\@else/', '<?php else : ?>', $template);
+    $template = preg_replace('/\@endif/', '<?php endif; ?>', $template);
+
+    return $template;
+}
+
+private function replaceForEachStatement($template, $data)
+{
+$template = $this->replacePlaceholders($template, $data);
+
+$template = preg_replace('/\@if\((.*?)\)/', '<?php if ($1) : ?>', $template);
+$template = preg_replace('/\@else/', '<?php else : ?>', $template);
+$template = preg_replace('/\@endif/', '<?php endif; ?>', $template);
+
+return $template;
+}
+
 }
