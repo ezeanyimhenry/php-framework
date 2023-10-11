@@ -15,14 +15,20 @@ class TestController extends BaseController
         $data = [
             'activity' => 'activities',
             'userDetails' => $_SESSION['userDetails'],
-    //         'users' => [
-    //     ['name' => 'User 1'],
-    //     ['name' => 'User 2'],
-    //     ['name' => 'User 3'],
-    // ],
+            'users' => [
+                ['name' => 'User 1'],
+                ['name' => 'User 2'],
+                ['name' => 'User 3'],
+            ],
+            'test' => [
+                'test1' => [
+                    'name' => 'Test 1',
+                ]
+            ],
+
         ];
         $template->render('template', $data);
     }
 
-   
+
 }

@@ -1,21 +1,26 @@
 <?php
-
 namespace App\Controllers;
 
+use Framework\Template\TemplateEngine;
 use App\Models\ActivityModel;
 
 class ActivityController extends BaseController
 {
     public function showAllUserActivity()
     {
-        // Create an instance of the WalletModel
+        $template = new TemplateEngine();
+        // Create an instance of the ActivityModel
         $activityModel = new ActivityModel($this->db);
 
         // Fetch wallet data using the model's method
         $activities = $activityModel->getAllUserActivity();
 
         $contentPage = 'App/views/user/_history.php';
-        include_once 'App/views/user/_index.php';
+        $data = [
+            'activities' => $activities,
+            'userDetails' => $_SESSION['userDetails'],
+        ];
+        echo $template->render('App/views/user/_index.php', $contentPage ,$data);
     }
 
    

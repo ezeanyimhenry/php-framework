@@ -28,8 +28,10 @@ use Framework\Helpers\Utility;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (count($activities) > 0): ?>
-                                        <?php foreach ($activities as $activity): ?>
+                                    @if (count($data['activities']) > 0)
+                                        @foreach ($data['activities'] as $activity)
+                                    <?php //if (count($activities) > 0): ?>
+                                        <?php //foreach ($activities as $activity): ?>
                                             <tr>
                                                 <td>
                                                     <?= $activity['create_time'] ?>
@@ -50,12 +52,15 @@ use Framework\Helpers\Utility;
                                                     <?= $activity['status'] ?>
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
+                                        <?php //endforeach; ?>
+                                    <?php //else: ?>
+                                        @endforeach
+                                    @else
                                         <tr>
                                             <td colspan="6" style="text-align:center;">No Data Available</td>
                                         </tr>
-                                    <?php endif; ?>
+                                    <?php //endif; ?>
+                                    @endif
                                 </tbody>
 
                                 <tfoot>
