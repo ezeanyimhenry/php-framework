@@ -11,15 +11,15 @@ use Framework\Helpers\Utility;
 		<!-- row -->
 		<div class="row">
 			<?php
-
-			if (isset($_SESSION['error'])) {
+			if (isset($_SESSION['error'])):
 				Utility::displayAlert('error');
-			}
+			endif;
 
-			if (isset($_SESSION['success'])) {
+			if (isset($_SESSION['success'])):
 				Utility::displayAlert('success');
-			}
+			endif;
 			?>
+
 			<div class="col-xl-4 col-lg-12 col-sm-12">
 				<div class="card overflow-hidden">
 					<div class="text-center p-3 overlay-box "
@@ -32,26 +32,27 @@ use Framework\Helpers\Utility;
 							</div>
 						</div>
 						<h3 class="mt-3 mb-1 text-white">
-							<?= $userDetails['firstName'] . " " . $userDetails['lastName'] ?>
+							{{ userDetails.firstName }} {{ userDetails.lastName }}
 						</h3>
 						<p class="text-white mb-0">@
-							<?= $userDetails['username'] ?>
+							{{ userDetails.username }}
 						</p>
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Email</span>
 							<strong class="text-muted">
-								<?= $userDetails['email'] ?>
+								{{ userDetails.email }}
 							</strong>
 						</li>
 						<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Role</span>
 							<strong class="text-muted">
-								<?= ucfirst($userDetails['role']) ?>
+								{{ ucfirst(userDetails.role) }}
+								{{ ucfirst(test) }}
 							</strong>
 						</li>
 						<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Timezone</span>
 							<strong class="text-muted">
-								<?= $userDetails['timezone'] ?>
+								{{ userDetails.timezone }}
 							</strong>
 						</li>
 						<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Your Ip
@@ -78,8 +79,8 @@ use Framework\Helpers\Utility;
 					</div>
 					<div class="card-body">
 						<div class="basic-form">
-							<form class="form-valide-with-icon needs-validation" method="POST" action="/profile/<?= $_SESSION['user_id'] ?>"
-								novalidate>
+							<form class="form-valide-with-icon needs-validation" method="POST"
+								action="/profile/{{ userDetails.id }}" novalidate>
 								<div class="mb-3">
 									<label class="text-label form-label" for="validationCustomFirstname">Firstname<span
 											class="required">*</span></label>
@@ -87,7 +88,7 @@ use Framework\Helpers\Utility;
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 										<input type="text" class="form-control border-left-end" name="firstname"
 											id="validationCustomFirstname" placeholder="Enter Firstname.."
-											value="<?= $userDetails['firstName'] ?>" required>
+											value="{{ userDetails.firstName }}" required>
 										<div class="invalid-feedback">
 											Please Enter a Name.
 										</div>
@@ -107,7 +108,7 @@ use Framework\Helpers\Utility;
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 										<input type="text" class="form-control border-left-end" name="lastname"
 											id="validationCustomLastName" placeholder="Enter Lastname.."
-											value="<?= $userDetails['lastName'] ?>" required>
+											value="{{ userDetails.lastName }}" required>
 										<div class="invalid-feedback">
 											Please Enter Name.
 										</div>
@@ -127,7 +128,7 @@ use Framework\Helpers\Utility;
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 										<input type="text" class="form-control border-left-end" name="username"
 											id="validationCustomUsername" placeholder="Enter a username.."
-											value="<?= $userDetails['username'] ?>" required readonly>
+											value="{{ userDetails.username }}" required readonly>
 										<div class="invalid-feedback">
 											Please Enter a username.
 										</div>
@@ -142,7 +143,7 @@ use Framework\Helpers\Utility;
 										<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 										<input type="email" class="form-control border-left-end" name="email"
 											id="validationCustomEmail" placeholder="Enter an email.."
-											value="<?= $userDetails['email'] ?>" required readonly>
+											value="{{ userDetails.email }}" required readonly>
 										<div class="invalid-feedback">
 											Please Enter an email.
 										</div>
@@ -155,18 +156,15 @@ use Framework\Helpers\Utility;
 										<span class="input-group-text"> <i class="fa fa-clock"></i> </span>
 										<select name="timezone" id="validationCustomTimezones"
 											class="form-control border-left-end">
-											<option value="<?= $userDetails['timezone'] ?>" selected>
-												<?= $userDetails['timezone'] ?>
+											<option value="{{ userDetails.timezone }}" selected>
+												{{ userDetails.timezone }}
 											</option>
-											<?php
-											foreach ($timezones as $timezone):
-												?>
-												<option value="<?= $timezone ?>">
-													<?= $timezone ?>
-												</option>
-												<?php
-											endforeach
+											@foreach(timezones as timezone)
 											?>
+											<option value="{{ timezone }}">
+												{{ timezone }}
+											</option>
+											@endforeach
 										</select>
 										<div class="invalid-feedback">
 											Please Select a Timezone.

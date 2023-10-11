@@ -13,12 +13,12 @@ class DashboardController extends BaseController
         $accountModel = new AccountModel($this->db);
         
         $accountBalance = $accountModel->getBalance();
-        $contentPage = 'App/views/user/_dashboard.php';
+        
         $data = [
             'accountBalance' => number_format($accountBalance),
             'userDetails' => $_SESSION['userDetails'],
         ];
 
-        echo $template->render('App/views/user/_index.php', $contentPage ,$data);
+        echo $template->render('user/_dashboard', $data);
     }
 }

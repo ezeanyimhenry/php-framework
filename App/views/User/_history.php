@@ -28,28 +28,28 @@ use Framework\Helpers\Utility;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (count($data['activities']) > 0)
-                                        @foreach ($data['activities'] as $activity)
+                                    @if({{ countActivities }} > 0)
+                                        @foreach(activities as $activity)
                                     <?php //if (count($activities) > 0): ?>
                                         <?php //foreach ($activities as $activity): ?>
                                             <tr>
                                                 <td>
-                                                    <?= $activity['create_time'] ?>
+                                                {{ $activity.create_time }}
                                                 </td>
                                                 <td>
-                                                    <?= $activity['activity_type'] ?>
+                                                   {{ $activity.activity_type }}
                                                 </td>
                                                 <td>
-                                                    <?= $activity['amount'] ?>
+                                                     {{ $activity.amount }}
                                                 </td>
                                                 <td>
-                                                    <?= $activity['fiat'] ?>
+                                                    {{ $activity.fiat }} 
                                                 </td>
                                                 <td>
-                                                    <?= $activity['description'] ?>
+                                                     {{ $activity.description }}
                                                 </td>
                                                 <td>
-                                                    <?= $activity['status'] ?>
+                                                    {{ $activity.status }}
                                                 </td>
                                             </tr>
                                         <?php //endforeach; ?>

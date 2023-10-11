@@ -5,6 +5,7 @@ use App\Controllers\BaseController;
 use Framework\Helpers\Utility;
 use Framework\Validators\BaseValidator;
 use Framework\Validators\ProfileValidator;
+use Framework\Template\TemplateEngine;
 
 /**
  * ProfileController
@@ -18,13 +19,19 @@ class ProfileController extends BaseController
      */
     public function displayProfile()
     {
+        $template = new TemplateEngine();
         $userModel = $this->createUserModel();
         $userController = $this->createUserController();
 
         $timezones = Utility::getAllTimezones();
 
-        $contentPage = 'App/views/user/_profile.php';
-        include_once 'App/views/user/_index.php';
+        $data = [
+            'timezones' => $timezones,
+            'userDetails' => $_SESSION['userDetails'],
+            'test' => 'testing'
+        ];
+
+        $template->render('user/_profile', $data);
     }
 
     /**

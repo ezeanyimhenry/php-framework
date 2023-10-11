@@ -18,7 +18,7 @@
                                     <div class="col-sm-10">
                                         <div class="form-control-wrap">
                                             <input type="text" class="form-control" id="type" name="type"
-                                                value="<?= $type ?>" readonly>
+                                                value="{{ type }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -28,14 +28,14 @@
                                     <div class="col-sm-10">
                                         <div class="form-control-wrap">
                                             <select name="plan_select" id="plan_select"
-                                                onchange='fetchPlanDetails(this.value, "<?= $type ?>");'
+                                                onchange='fetchPlanDetails(this.value, "{{ type }}");'
                                                 id="planTypeSelect" class="default-select form-control">
                                                 <option value="">Select a Plan</option>
-                                                <?php foreach ($investmentPlans as $investmentPlan): ?>
-                                                    <option value="<?= $investmentPlan['plan_name'] ?>">
-                                                        <?= $investmentPlan['plan_name'] ?>
+                                                @foreach(investmentPlans as investmentPlan)
+                                                    <option value="{{ investmentPlan.plan_name }}">
+                                                        {{ investmentPlan.plan_name }}
                                                     </option>
-                                                <?php endforeach; ?>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

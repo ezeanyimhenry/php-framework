@@ -13,11 +13,11 @@
                     <div class="card-body">
                         <select id="currency_select" name="currency_select" class="default-select form-control">
                             <option value="">Select Currency/Network</option>
-                            <?php foreach ($wallets as $wallet): ?>
-                                <option value="<?= $wallet['currency'] ?>">
-                                    <?= $wallet['currency'] ?>
+                            @foreach(wallets as wallet)
+                                <option value="{{ wallet.currency }}">
+                                {{ wallet.currency }}
                                 </option>
-                            <?php endforeach; ?>
+                            @endforeach
                         </select>
                     </div>
                 </div>

@@ -15,12 +15,13 @@ class ActivityController extends BaseController
         // Fetch wallet data using the model's method
         $activities = $activityModel->getAllUserActivity();
 
-        $contentPage = 'App/views/user/_history.php';
         $data = [
             'activities' => $activities,
+            'countActivities' => count($activities),
             'userDetails' => $_SESSION['userDetails'],
         ];
-        echo $template->render('App/views/user/_index.php', $contentPage ,$data);
+        
+        $template->render('user/_history', $data);
     }
 
    

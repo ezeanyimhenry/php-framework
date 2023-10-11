@@ -46,7 +46,7 @@ include_once("App/views/layout/user/_head.php")
 			?>
 
 		<?php
-		include_once($contentPage);
+		// include_once($contentPage);
 		?>
 
 		<?php

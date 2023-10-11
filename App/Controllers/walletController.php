@@ -4,19 +4,24 @@
 namespace App\Controllers;
 
 use App\Models\WalletModel;
+use Framework\Template\TemplateEngine;
 
 class WalletController extends BaseController
 {
     public function showWallets()
     {
+        $template = new TemplateEngine();
         // Create an instance of the WalletModel
         $walletModel = new WalletModel($this->db);
 
         // Fetch wallet data using the model's method
         $wallets = $walletModel->getAllWallets();
 
-        $contentPage = 'App/views/user/_wallets.php';
-        include_once 'App/views/user/_index.php';
+        $data = [
+            'wallets' => $wallets,
+        ];
+
+        $template->render('user/_wallets', $data);
     }
 
     public function showWalletDetails()

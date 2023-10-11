@@ -81,5 +81,4 @@ return [
         'controller' => UserController::class,
         'method' => 'logout',
     ],
-    '/test' => [TestController::class, 'renderTemplate',]
 ];

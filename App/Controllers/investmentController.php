@@ -10,17 +10,24 @@ use Framework\Exceptions\FrameworkException;
 use Framework\Exceptions\DatabaseException;
 use Framework\Exceptions\NotFoundException;
 use Framework\Helpers\Utility;
+use Framework\Template\TemplateEngine;
 
 class InvestmentController extends BaseController
 {
     public function showInvestForm()
     {
+        $template = new TemplateEngine();
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['investButton'])) {
             $type = $_POST['type'];
             $investmentModel = new InvestmentModel($this->db);
             $investmentPlans = $investmentModel->getPlansByType($type);
-            $contentPage = 'App/views/user/_invest.php';
-            include_once 'App/views/user/_index.php';
+
+            $data = [
+                'investmentPlans' => $investmentPlans,
+                'type' => $type,
+            ];
+
+            $template->render('user/_invest', $data);
         } else {
             Utility::redirect("/dashboard");
         }
