@@ -15,7 +15,7 @@ class TemplateEngine
         foreach ($data as $key => $value) {
             $this->assign($key, $value);
         }
-        $path = $template_name . '.php';
+        $path = VIEWS_URL . $template_name . '.php';
         if (file_exists($path)) {
             $content = file_get_contents($path);
 
@@ -24,6 +24,7 @@ class TemplateEngine
             $content = $this->replaceForEachStatement($content, $this->data);
 
             eval('?>' . $content . '<?php');
+            include_once VIEWS_URL . 'user/_index.php';
         } else {
             throw new \Exception("Template file not found: $path");
         }
@@ -35,7 +36,7 @@ class TemplateEngine
             if ($value === null) {
                 continue; // Skip null values
             }
-    
+
             if (is_array($value)) {
                 // Handle nested arrays and placeholders recursively
                 $nestedTemplate = $template;
@@ -45,14 +46,22 @@ class TemplateEngine
                 }
                 $template = $nestedTemplate;
             } else {
-                // Replace placeholders in the template
-                $template = preg_replace('/\{\{\s' . $key . '\s\}\}/', $value, $template);
+                // Handle custom template functions
+                if (preg_match('/{{\s*(' . $key . ')\s*\(\s*(.*?)\s*\)}}/', $template, $matches)) {
+                    $functionName = $matches[1];
+                    $functionArgs = $matches[2];
+                    $functionResult = $this->callCustomFunction($functionName, $functionArgs);
+                    $template = str_replace($matches[0], $functionResult, $template);
+                } else {
+                    // Replace placeholders in the template
+                    $template = preg_replace('/\{\{\s*' . $key . '\s*\}\}/', $value, $template);
+                }
             }
         }
-    
+
         return $template;
     }
-    
+
 
     private function replaceIfStatement($template)
     {
@@ -68,31 +77,65 @@ class TemplateEngine
     {
         // Define a regular expression pattern for @foreach directive
         $pattern = '/@foreach\((.*?)\s+as\s+(\$?\w+)\)(.*?)@endforeach/s';
-    
+
         // Define a callback function to process the @foreach directive
         $callback = function ($matches) use ($data) {
             $arrayExpression = $data[$matches[1]]; // Extract the array expression
             $itemVariable = $matches[2]; // Extract the item variable
             $content = $matches[3]; // Extract the loop content
-        
+
             $array = $arrayExpression;
-        
+
             $result = '';
-        
+
             if (is_array($array)) {
-                for ($i=0; $i < count($array); $i++) {
-                    $itemContent = str_replace($itemVariable, $matches[1].'.'.$i, $content);
+                for ($i = 0; $i < count($array); $i++) {
+                    $itemContent = str_replace($itemVariable, $matches[1] . '.' . $i, $content);
                     // Replace placeholders within the loop content
                     $itemContent = $this->replacePlaceholders($itemContent, $data);
                     $result .= $itemContent;
                 }
             }
             return $result;
-        };        
+        };
         // Use preg_replace_callback to replace @foreach directives
         return preg_replace_callback($pattern, $callback, $template);
     }
-    
+
+    // Custom function handler
+    private function callCustomFunction($functionName, $functionArgs)
+    {
+        // Define your custom template functions
+        if ($functionName === 'ucfirst') {
+            // Example: Handle ucfirst function
+            $args = $this->parseFunctionArgs($functionArgs);
+            return ucfirst($args);
+        } elseif ($functionName === 'strtolower') {
+            // Handle strtolower function
+            $args = $this->parseFunctionArgs($functionArgs);
+            return strtolower($args);
+        } elseif ($functionName === 'strtoupper') {
+            // Handle strtoupper function
+            $args = $this->parseFunctionArgs($functionArgs);
+            return strtoupper($args);
+        } elseif ($functionName === 'strlen') {
+            // Handle strlen function
+            $args = $this->parseFunctionArgs($functionArgs);
+            return strlen($args);
+        }
+
+        // Add more custom functions as needed
+
+        return ''; // Default to an empty string if the function is not defined
+    }
+
+    // Helper function to parse function arguments
+    private function parseFunctionArgs($args)
+    {
+        // Implement your own logic to parse function arguments if needed
+        return $args;
+    }
+
 
 
 
