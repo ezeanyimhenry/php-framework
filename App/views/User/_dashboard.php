@@ -10,14 +10,14 @@ use Framework\Helpers\Utility;
 	<div class="container-fluid">
 		<div class="page-titles">
 			<h4 class="title mb-0">Welcome,
-				<?= ucfirst($userDetails['firstName']) ?>
+				{{ ucfirst(userDetails.firstName) }}
 			</h4>
 			<span class="small">Your IP Address:
 				<?= Utility::getUserInfo()['ip_address'] ?>
 			</span>
 			<div>
 				<span class="small">Your timezone is set to:
-					<?= $userDetails['timezone'] ?>
+					{{ userDetails.timezone }}
 				</span><a href="/profile" class="text-secondary"> Change Timezone</a>
 			</div>
 		</div>

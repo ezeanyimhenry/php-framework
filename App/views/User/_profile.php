@@ -47,7 +47,6 @@ use Framework\Helpers\Utility;
 						<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Role</span>
 							<strong class="text-muted">
 								{{ ucfirst(userDetails.role) }}
-								{{ ucfirst(test) }}
 							</strong>
 						</li>
 						<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Timezone</span>

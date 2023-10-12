@@ -28,7 +28,6 @@ class ProfileController extends BaseController
         $data = [
             'timezones' => $timezones,
             'userDetails' => $_SESSION['userDetails'],
-            'test' => 'testing'
         ];
 
         $template->render('user/_profile', $data);
