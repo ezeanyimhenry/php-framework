@@ -83,7 +83,7 @@ class InvestmentController extends BaseController
 
                 if (!is_numeric($amount) || $amount <= 0) {
                     // Throw a FrameworkException for invalid investment amount
-                    throw new FrameworkException(422, 'Invalid investment amount');
+                    throw new FrameworkException('Invalid investment amount', 422);
                 }
 
                 if ($source === 'new_deposit') {

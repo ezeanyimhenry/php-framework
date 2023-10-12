@@ -520,7 +520,7 @@ use Framework\Helpers\Utility;
 									<h3 class="text-white">Refer & Earn</h3>
 									<p>Your Referral link: <span id="referralLinkText">
 											<?= WEBSITE_URL ?>?ref=
-											<?= $userDetails['username'] ?>
+											{{ userDetails.username }}
 										</span>
 									</p><button class="btn btn-primary" id="copyLinkButton">Copy Link</button>
 									<div id="alert" style="display: none;"

@@ -1,6 +1,9 @@
 <?php
 namespace Framework\Template;
 
+use Framework\Exceptions\FrameworkException;
+use Framework\Exceptions\NotFoundException;
+
 class TemplateEngine
 {
     private $data = [];
@@ -26,7 +29,8 @@ class TemplateEngine
             eval('?>' . $content . '<?php');
             include_once VIEWS_URL . 'user/_index.php';
         } else {
-            throw new \Exception("Template file not found: $path");
+            throw new NotFoundException("Template file not found: $path");
+            // throw new FrameworkException(404, "Template file not found: $path");
         }
     }
 

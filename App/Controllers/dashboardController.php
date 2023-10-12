@@ -19,6 +19,6 @@ class DashboardController extends BaseController
             'userDetails' => $_SESSION['userDetails'],
         ];
 
-        echo $template->render('user/_dashboard', $data);
+        echo $template->render('user/_dashboar', $data);
     }
 }
