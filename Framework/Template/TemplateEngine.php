@@ -30,7 +30,7 @@ class TemplateEngine
         }
     }
 
-    private function replacePlaceholders($template, $data)
+    private function replacePlaceholders($template, $data, $functionName='')
     {
         foreach ($data as $key => $value) {
             if ($value === null) {
@@ -47,14 +47,21 @@ class TemplateEngine
                 $template = $nestedTemplate;
             } else {
                 // Handle custom template functions
-                if (preg_match('/{{\s*(' . $key . ')\s*\(\s*(.*?)\s*\)}}/', $template, $matches)) {
+                $pattern = '/\{\{\s*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\('. $key .'\)\s*\}\}/';
+                if (preg_match($pattern, $template, $matches)) {
                     $functionName = $matches[1];
-                    $functionArgs = $matches[2];
-                    $functionResult = $this->callCustomFunction($functionName, $functionArgs);
-                    $template = str_replace($matches[0], $functionResult, $template);
+                    $newPattern = '{{ '. $key .' }}';
+                    $template = preg_replace($pattern, $newPattern, $template);
+                    $template = $this->replacePlaceholders($template, [$key => $value], $functionName);
                 } else {
                     // Replace placeholders in the template
-                    $template = preg_replace('/\{\{\s*' . $key . '\s*\}\}/', $value, $template);
+                    if ($functionName != ''){
+                        $functionResult = $this->callCustomFunction($functionName, $value);
+                        $template = preg_replace('/\{\{\s*' . $key . '\s*\}\}/', $functionResult, $template);
+                    }else{
+                        $template = preg_replace('/\{\{\s*' . $key . '\s*\}\}/', $value, $template);
+                    }
+                    
                 }
             }
         }
