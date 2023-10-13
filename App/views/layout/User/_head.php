@@ -20,7 +20,7 @@
 
   <!-- Page Title Here -->
   <title>
-    <?= WEBSITE_NAME . '-' . WEBSITE_DESCRIPTION_SHORT ?>
+    @yield('title')
   </title>
 
 

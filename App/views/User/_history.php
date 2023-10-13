@@ -1,5 +1,9 @@
 @extend('layout/user/_layout')
 
+@section('title', 'History - <?= WEBSITE_NAME ?>')
+
+@section('content')
+
 <!--**********************************
             Content body start
         ***********************************-->
@@ -82,3 +86,5 @@
 <!--**********************************
             Content body end
         ***********************************-->
+
+@endsection

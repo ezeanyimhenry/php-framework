@@ -13,28 +13,52 @@ class TemplateEngine
     }
 
     public function render($template_name, $data)
-    {
-        foreach ($data as $key => $value) {
-            $this->assign($key, $value);
-        }
+{
+    foreach ($data as $key => $value) {
+        $this->assign($key, $value);
+    }
 
-        $content = $this->renderTemplate($template_name);
+    // Get the content of the main template
+    $content = $this->renderTemplate($template_name);
 
-        // Check if the @extend directive is present in the content
-    if (preg_match('/@extend\(\'(.*?)\'\)/', $content, $matches)) {
-        $layout_template_name = $matches[1]; // Extract the layout template name
-        $layoutContent = $this->renderTemplate($layout_template_name);
-
-        // Replace the @extend directive with the content
-        $layoutContent = str_replace('@content', $content, $layoutContent);
-
-        // Render the layout with the content
-        echo $layoutContent;
+    // Extract the layout template name using a regular expression
+    preg_match('/@extend\(\'(.*?)\'\)/', $content, $extendMatch);
+    if (!empty($extendMatch)) {
+        $layout_template_name = $extendMatch[1];
     } else {
-        // If no @extend directive is found, render the content directly
-        echo $content;
+        // Set a default layout template name if @extend is not specified
+        $layout_template_name = 'layout/default_layout';
     }
+
+    // Render the layout template
+    $layoutContent = $this->renderTemplate($layout_template_name);
+
+    // Replace the @extend directive with an empty string
+    $content = preg_replace('/@extend\(.*?\)/', '', $content);
+
+    // Extract sections
+    preg_match_all('/@section\(\'(.*?)\',(.*?)\)/s', $layoutContent, $sections, PREG_SET_ORDER);
+
+    // Replace section placeholders with section content
+    foreach ($sections as $section) {
+        $sectionName = $section[1];
+        $sectionContent = trim($section[2]);
+        $content = str_replace("@yield('$sectionName')", $sectionContent, $content);
     }
+
+    // Extract the title using a regular expression
+    preg_match('/@section\(\'title\', \'(.*?)\'\)/', $content, $titleMatch);
+    $title = !empty($titleMatch) ? $titleMatch[1] : '';
+
+    // Replace the @section('title') directive with the actual title
+    $layoutContent = preg_replace('/@yield\(\'title\'\)/', $title, $layoutContent);
+
+    // Output the final layout with the main content and sections
+    echo str_replace("@yield('content')", $content, $layoutContent);
+}
+
+
+
 
     private function renderTemplate($template_name)
     {

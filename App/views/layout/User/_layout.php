@@ -34,22 +34,22 @@ include_once("App/views/layout/user/_head.php")
 	<div id="main-wrapper">
 
 		<?php
-		include_once("App/views/layout/user/_navHeader.php")
-			?>
+		include_once("App/views/layout/user/_navHeader.php");
+		?>
 
 		<?php
-		include_once("App/views/layout/user/_header.php")
-			?>
+		include_once("App/views/layout/user/_header.php");
+		?>
 
 		<?php
-		include_once("App/views/layout/user/_sidebar.php")
-			?>
+		include_once("App/views/layout/user/_sidebar.php");
+		?>
 
 		<?php
 		// include_once($contentPage);
 		?>
 
-		@content
+		@yield('content')
 
 		<?php
 		include_once("App/views/user/components/modals/_plan_type_modal.php");
@@ -59,8 +59,8 @@ include_once("App/views/layout/user/_head.php")
 
 
 		<?php
-		include_once("App/views/layout/user/_footer.php")
-			?>
+		include_once("App/views/layout/user/_footer.php");
+		?>
 
 
 

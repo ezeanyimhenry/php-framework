@@ -1,5 +1,9 @@
 @extend('layout/user/_layout')
 
+@section('title', 'Profile - <?= WEBSITE_NAME ?>')
+
+@section('content')
+
 <?php
 
 use Framework\Helpers\Utility;
@@ -186,3 +190,5 @@ use Framework\Helpers\Utility;
 <!--**********************************
 			Content body end
 		***********************************-->
+
+@endsection

@@ -1,5 +1,9 @@
 @extend('layout/user/_layout')
 
+@section('title', 'Wallets - <?= WEBSITE_NAME ?>')
+
+@section('content')
+
 <!--**********************************
             Content body start
         ***********************************-->
@@ -57,3 +61,5 @@
     <!--**********************************
             Content body end
         ***********************************-->
+
+@endsection

@@ -1,5 +1,8 @@
 @extend('layout/user/_layout')
 
+@section('title', 'Dashboard - <?= WEBSITE_NAME ?>')
+
+@section('content')
 <?php
 use Framework\Helpers\Utility;
 
@@ -40,7 +43,7 @@ use Framework\Helpers\Utility;
 							<div class="media-body">
 								<p class="mb-1">Balance</p>
 								<h4 class="mb-0">
-									 {{ accountBalance }}
+									{{ accountBalance }}
 								</h4>
 								<!-- <span class="badge badge-primary">+3.5%</span> -->
 							</div>
@@ -550,3 +553,5 @@ use Framework\Helpers\Utility;
 <!--**********************************
 			Content body end
 		***********************************-->
+
+@endsection
