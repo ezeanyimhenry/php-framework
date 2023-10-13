@@ -1,7 +1,6 @@
 <?php
 namespace Framework\Template;
 
-use Framework\Exceptions\FrameworkException;
 use Framework\Exceptions\NotFoundException;
 
 class TemplateEngine
@@ -18,7 +17,29 @@ class TemplateEngine
         foreach ($data as $key => $value) {
             $this->assign($key, $value);
         }
+
+        $content = $this->renderTemplate($template_name);
+
+        // Check if the @extend directive is present in the content
+    if (preg_match('/@extend\(\'(.*?)\'\)/', $content, $matches)) {
+        $layout_template_name = $matches[1]; // Extract the layout template name
+        $layoutContent = $this->renderTemplate($layout_template_name);
+
+        // Replace the @extend directive with the content
+        $layoutContent = str_replace('@content', $content, $layoutContent);
+
+        // Render the layout with the content
+        echo $layoutContent;
+    } else {
+        // If no @extend directive is found, render the content directly
+        echo $content;
+    }
+    }
+
+    private function renderTemplate($template_name)
+    {
         $path = VIEWS_URL . $template_name . '.php';
+
         if (file_exists($path)) {
             $content = file_get_contents($path);
 
@@ -26,15 +47,18 @@ class TemplateEngine
             $content = $this->replaceIfStatement($content);
             $content = $this->replaceForEachStatement($content, $this->data);
 
-            eval('?>' . $content . '<?php');
-            include_once VIEWS_URL . 'user/_index.php';
+            ob_start();
+            eval('?>' . $content);
+            $content = ob_get_clean();
+
+            return $content;
         } else {
             throw new NotFoundException("Template file not found: $path");
-            // throw new FrameworkException(404, "Template file not found: $path");
         }
     }
 
-    private function replacePlaceholders($template, $data, $functionName='')
+
+    private function replacePlaceholders($template, $data, $functionName = '')
     {
         foreach ($data as $key => $value) {
             if ($value === null) {
@@ -51,21 +75,21 @@ class TemplateEngine
                 $template = $nestedTemplate;
             } else {
                 // Handle custom template functions
-                $pattern = '/\{\{\s*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\('. $key .'\)\s*\}\}/';
+                $pattern = '/\{\{\s*([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\(' . $key . '\)\s*\}\}/';
                 if (preg_match($pattern, $template, $matches)) {
                     $functionName = $matches[1];
-                    $newPattern = '{{ '. $key .' }}';
+                    $newPattern = '{{ ' . $key . ' }}';
                     $template = preg_replace($pattern, $newPattern, $template);
                     $template = $this->replacePlaceholders($template, [$key => $value], $functionName);
                 } else {
                     // Replace placeholders in the template
-                    if ($functionName != ''){
+                    if ($functionName != '') {
                         $functionResult = $this->callCustomFunction($functionName, $value);
                         $template = preg_replace('/\{\{\s*' . $key . '\s*\}\}/', $functionResult, $template);
-                    }else{
+                    } else {
                         $template = preg_replace('/\{\{\s*' . $key . '\s*\}\}/', $value, $template);
                     }
-                    
+
                 }
             }
         }

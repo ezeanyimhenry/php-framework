@@ -1,3 +1,5 @@
+@extend('layout/user/_layout')
+
 <?php
 
 use Framework\Helpers\Utility;

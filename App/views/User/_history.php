@@ -1,7 +1,5 @@
-<?php
-use Framework\Helpers\Utility;
+@extend('layout/user/_layout')
 
-?>
 <!--**********************************
             Content body start
         ***********************************-->
