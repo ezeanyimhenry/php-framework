@@ -130,16 +130,19 @@ class Utility
         // Get user's timezone using ip-api.com (adjust the URL to your needs)
         $ipApiUrl = 'http://ip-api.com/json/';
         try {
-            $ipApiData = file_get_contents($ipApiUrl);
+            // Attempt to fetch data from the remote URL
+            $ipApiData = @file_get_contents($ipApiUrl);
 
-            if ($ipApiData) {
+            if ($ipApiData !== false) {
+                // Data was successfully retrieved, parse the JSON response
                 $ipApiResult = json_decode($ipApiData, true);
                 $userTimezone = $ipApiResult['timezone'];
             } else {
+                // Set the timezone to 'Unknown' if the request failed
                 $userTimezone = 'Unknown';
             }
         } catch (Exception $e) {
-            // Handle the exception, e.g., log the error or provide a default timezone
+            // Handle any exceptions that may occur, e.g., log the error
             $userTimezone = 'Unknown';
         }
 
