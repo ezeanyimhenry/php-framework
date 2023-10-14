@@ -6,6 +6,7 @@ use Framework\Exceptions\NotFoundException;
 class TemplateEngine
 {
     private $data = [];
+    private $sections = [];
 
     public function assign($key, $value)
     {
@@ -13,49 +14,41 @@ class TemplateEngine
     }
 
     public function render($template_name, $data)
-{
-    foreach ($data as $key => $value) {
-        $this->assign($key, $value);
+    {
+        foreach ($data as $key => $value) {
+            $this->assign($key, $value);
+        }
+
+        // Get the content of the main template
+        $content = $this->renderTemplate($template_name);
+
+        // Extract the layout template name using a regular expression
+        preg_match('/@extend\(\'(.*?)\'\)/', $content, $extendMatch);
+        if (!empty($extendMatch)) {
+            $layout_template_name = $extendMatch[1];
+        } else {
+            // Set a default layout template name if @extend is not specified
+            $layout_template_name = 'layout/default_layout';
+        }
+
+        // Render the layout template
+        $layoutContent = $this->renderTemplate($layout_template_name);
+
+        // Replace the @extend directive with an empty string
+        $content = preg_replace('/@extend\(.*?\)/', '', $content);
+
+        // Extract sections and replace placeholders with section content
+        preg_match_all('/@section\(\'(.*?)\'\)(.*?)@endsection/s', $content, $sections, PREG_SET_ORDER);
+        foreach ($sections as $section) {
+            $sectionName = $section[1];
+            $sectionContent = trim($section[2]);
+            $layoutContent = str_replace("@yield('$sectionName')", $sectionContent, $layoutContent);
+        }
+        // Output the final layout with the main content and sections
+        echo $layoutContent;
     }
 
-    // Get the content of the main template
-    $content = $this->renderTemplate($template_name);
 
-    // Extract the layout template name using a regular expression
-    preg_match('/@extend\(\'(.*?)\'\)/', $content, $extendMatch);
-    if (!empty($extendMatch)) {
-        $layout_template_name = $extendMatch[1];
-    } else {
-        // Set a default layout template name if @extend is not specified
-        $layout_template_name = 'layout/default_layout';
-    }
-
-    // Render the layout template
-    $layoutContent = $this->renderTemplate($layout_template_name);
-
-    // Replace the @extend directive with an empty string
-    $content = preg_replace('/@extend\(.*?\)/', '', $content);
-
-    // Extract sections
-    preg_match_all('/@section\(\'(.*?)\',(.*?)\)/s', $layoutContent, $sections, PREG_SET_ORDER);
-
-    // Replace section placeholders with section content
-    foreach ($sections as $section) {
-        $sectionName = $section[1];
-        $sectionContent = trim($section[2]);
-        $content = str_replace("@yield('$sectionName')", $sectionContent, $content);
-    }
-
-    // Extract the title using a regular expression
-    preg_match('/@section\(\'title\', \'(.*?)\'\)/', $content, $titleMatch);
-    $title = !empty($titleMatch) ? $titleMatch[1] : '';
-
-    // Replace the @section('title') directive with the actual title
-    $layoutContent = preg_replace('/@yield\(\'title\'\)/', $title, $layoutContent);
-
-    // Output the final layout with the main content and sections
-    echo str_replace("@yield('content')", $content, $layoutContent);
-}
 
 
 
