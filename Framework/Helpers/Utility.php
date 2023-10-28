@@ -14,9 +14,9 @@ require 'Framework/Vendors/PHPMailer/src/Exception.php';
 
 class Utility
 {
-    static function generateRandomToken()
+    static function generateRandomToken($numbers = 32)
     {
-        return bin2hex(random_bytes(32));
+        return bin2hex(random_bytes($numbers));
     }
 
     static function setRememberMeCookie($token, $identifier)
