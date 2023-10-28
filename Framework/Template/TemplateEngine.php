@@ -13,7 +13,7 @@ class TemplateEngine
         $this->data[$key] = $value;
     }
 
-    public function render($template_name, $data)
+    public function render($template_name, $data=[])
     {
         foreach ($data as $key => $value) {
             $this->assign($key, $value);
