@@ -27,7 +27,7 @@
 	
 	
 	
-     <link href="Public/css/style.css" rel="stylesheet">
+     <link href="Public/style.css" rel="stylesheet">
     
 </head>
 
@@ -55,9 +55,7 @@
 	Scripts
 ***********************************-->
 <!-- Required vendors -->
-<script src="Public/vendor/global/global.min.js"></script>
-  <script src="Public/js/custom.min.js"></script>
-<script src="Public/js/dlabnav-init.js"></script>
+<script src="Public/script.js"></script>
 
 </body>
 
