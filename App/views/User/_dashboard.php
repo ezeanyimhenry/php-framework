@@ -1,6 +1,8 @@
 @extend('layout/user/_layout')
 
-@section('title', 'Dashboard - <?= WEBSITE_NAME ?>')
+@section('title')
+Dashboard - <?= WEBSITE_NAME ?>
+@endsection
 
 @section('content')
 <?php

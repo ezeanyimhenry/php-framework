@@ -1,17 +1,17 @@
 <?php 
-use App\Controllers\UserController;
-use App\Controllers\SignupController;
-use App\Controllers\LoginController;
-use App\Controllers\DashboardController;
-use App\Controllers\InvestmentController;
-use App\Controllers\ActivityController;
 use App\Controllers\CronController;
-use App\Controllers\PasswordResetController;
+use App\Controllers\TestController;
+use App\Controllers\UserController;
+use App\Controllers\LoginController;
+use App\Controllers\SignupController;
 use App\Controllers\WalletController;
 use App\Controllers\ProfileController;
-use App\Controllers\TestController;
-
+use App\Controllers\ActivityController;
+use App\Controllers\DashboardController;
 use Framework\Middleware\AuthMiddleware;
+use App\Controllers\InvestmentController;
+use App\Controllers\WithdrawalController;
+use App\Controllers\PasswordResetController;
 
 return [
     '' => '/App/views/_index.php',
@@ -26,6 +26,7 @@ return [
     '/reset-password' => [PasswordResetController::class, 'showResetPasswordForm'],
     '/reset-password/reset' => [PasswordResetController::class, 'resetPassword'],
     '/cron' => [CronController::class, 'processDailyInvestmentEarnings'],
+    '/test' => [TestController::class,'display'],
     '/dashboard' => [
         'middleware' => AuthMiddleware::class,
         'controller' => DashboardController::class,
@@ -61,6 +62,11 @@ return [
         'controller' => ActivityController::class,
         'method' => 'showAllUserActivity',
     ],
+    '/withdraw' => [
+        'middleware' => AuthMiddleware::class,
+        'controller' => WithdrawalController::class,
+        'method' => 'index',
+    ],
     '/profile' => [
         'middleware' => AuthMiddleware::class,
         'controller' => ProfileController::class,
@@ -81,4 +87,5 @@ return [
         'controller' => UserController::class,
         'method' => 'logout',
     ],
+    
 ];
